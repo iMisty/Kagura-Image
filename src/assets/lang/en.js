@@ -2,6 +2,12 @@
 
 module.exports = {
   menu: {
-    home: 'Home'
+    home: 'Home',    
+    about: 'About',
+    works: 'Works',
+    contact: 'Contact',
+    blogs: 'Blogs'
+
+
   }
 }
