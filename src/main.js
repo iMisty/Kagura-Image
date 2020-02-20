@@ -4,6 +4,7 @@ import router from './router';
 import store from './store';
 import vuei18n from 'vue-i18n';
 import axios from 'axios';
+import './less/style.less';
 
 Vue.config.productionTip = false;
 Vue.use(vuei18n);
