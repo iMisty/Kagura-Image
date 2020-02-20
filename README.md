@@ -1,29 +1,11 @@
-# kagura.github.io
+# Homepage-2020
 
-## Project setup
-```
-npm install
-```
+## 说明
+- 交付与 Kagura design project studio 的工作室首页
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 目前进度
+- 首页： 20%
+- 关于： 0%
+- 作品： 0%
+- 文章： 0%
+- 联系： 0%
