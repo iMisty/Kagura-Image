@@ -25,7 +25,8 @@
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "lint-staged": "^9.4.2",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "serialize-javascript": ">=2.1.1"
   },
   "eslintConfig": {
     "root": true,
