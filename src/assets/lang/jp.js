@@ -6,6 +6,6 @@ module.exports = {
     about: '静縁文庫について',
     works: '文庫イベント',
     contact: '連絡',
-    blogs: '文庫本'
+    blogs: 'ブログ'
   }
 }
