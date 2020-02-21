@@ -4,14 +4,18 @@
       <div>Test text 1</div>
       <div>Test text 2</div>
     </banner>
+    <about :imgLink="background2.link"></about>
   </div>
 </template>
 
 <script>
 import banner from "@/components/Home/banner.vue";
+import about from "@/components/Home/about.vue";
+
 export default {
   components: {
-    banner
+    banner,
+    about
   },
   data() {
     return {
@@ -19,11 +23,15 @@ export default {
         link: require("@/static/img/bg.jpg"),
         name: "Logo"
       },
-      bannerText: ''
+      bannerText: '',
+      background2:{
+        link: require('@/static/img/test1.jpg')
+      }
     };
   },
   computed: {},
-  watch: {},
+  watch: {
+  },
   methods: {
     getInfo() {
       this.$axios
@@ -44,7 +52,8 @@ export default {
       const a = this.ace;
       // eslint-disable-next-line no-console
       console.log(a);
-    }
+    },
+
   },
   created() {},
   mounted() {
