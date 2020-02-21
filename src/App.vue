@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <nav id="nav" :class="{ 'js-fixed': navBg }">
       <div class="nav-wrap">
         <div class="logo">
           <img src="@/assets/logo.svg" alt="Logo" />
@@ -13,10 +13,45 @@
           <router-link to="/contact">Contact</router-link>
         </div>
       </div>
-    </div>
+    </nav>
     <router-view />
   </div>
 </template>
+
+<script>
+import BufferAnimation from "vue-scroll-buffer";
+export default {
+  components: {},
+  data() {
+    return {
+      navBg: false,
+      scroll: ""
+    };
+  },
+  computed: {},
+  watch: {},
+  methods: {
+    getScroll() {
+      this.scroll =
+        document.documentElement.scrollTop || document.body.scrollTop;
+      // eslint-disable-next-line no-console
+      console.log(this.scroll);
+      // eslint-disable-next-line no-console
+      console.log(this.navBg);
+      if (this.scroll >= 300) {
+        this.navBg = true;
+      } else {
+        this.navBg = false;
+      }
+    }
+  },
+  created() {},
+  mounted() {
+    BufferAnimation(10);
+    window.addEventListener("scroll", this.getScroll);
+  }
+};
+</script>
 
 <style lang="less">
 #app {
@@ -30,14 +65,16 @@
 #nav {
   position: fixed;
   width: 100%;
-  z-index: 4;
+  z-index: 12;
   font-size: 2rem;
+  transition-duration: .4s;
   .nav-wrap {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 16px 4%;
+    transition-duration: .4s;
   }
   a {
     font-weight: bold;
@@ -49,17 +86,17 @@
   }
 }
 .navbar {
-  transition-duration: .4s;
-  &:hover a{
-    filter: opacity(.4);
-    transition-duration: .4s;
+  transition-duration: 0.4s;
+  &:hover a {
+    filter: opacity(0.4);
+    transition-duration: 0.4s;
   }
   a {
     position: relative;
     padding: 0 16px;
     font-size: 1.6rem;
     text-transform: uppercase;
-    transition-duration: .4s;
+    transition-duration: 0.4s;
     &::after {
       content: "";
       position: absolute;
@@ -74,9 +111,18 @@
       width: 0;
       height: 0;
     }
-    &:hover{
+    &:hover {
       filter: opacity(1);
     }
+  }
+}
+#nav.js-fixed{
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  transition-duration: .4s;
+  .nav-wrap{
+    padding: 8px 2%;
+    transition-duration: .4s;
   }
 }
 </style>
