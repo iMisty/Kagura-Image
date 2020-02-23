@@ -5,17 +5,20 @@
       <div>Test text 2</div>
     </banner>
     <about :imgLink="background2.link"></about>
+    <process></process>
   </div>
 </template>
 
 <script>
-import banner from "@/components/Home/banner.vue";
-import about from "@/components/Home/about.vue";
+import banner from "@/components/Home/Banner.vue";
+import about from "@/components/Home/About.vue";
+import process from "@/components/Home/Process.vue";
 
 export default {
   components: {
     banner,
-    about
+    about,
+    process
   },
   data() {
     return {
