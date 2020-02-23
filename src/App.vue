@@ -19,6 +19,7 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
 import BufferAnimation from "vue-scroll-buffer";
 export default {
   components: {},
@@ -47,7 +48,7 @@ export default {
   },
   created() {},
   mounted() {
-    BufferAnimation(10);
+    //BufferAnimation(10);
     window.addEventListener("scroll", this.getScroll);
   }
 };
