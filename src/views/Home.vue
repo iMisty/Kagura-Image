@@ -6,6 +6,7 @@
     </banner>
     <about :imgLink="background2.link"></about>
     <process></process>
+    <intro :articleBG="article.link" :imgAlt="article.name" :darker="true"></intro>
   </div>
 </template>
 
@@ -13,12 +14,14 @@
 import banner from "@/components/Home/Banner.vue";
 import about from "@/components/Home/About.vue";
 import process from "@/components/Home/Process.vue";
+import intro from '@/components/Home/Article.vue';
 
 export default {
   components: {
     banner,
     about,
-    process
+    process,
+    intro
   },
   data() {
     return {
@@ -29,6 +32,10 @@ export default {
       bannerText: '',
       background2:{
         link: require('@/static/img/test1.jpg')
+      },
+      article: {
+        link: require('@/static/img/article.jpg'),
+        name: "Article Background"
       }
     };
   },
