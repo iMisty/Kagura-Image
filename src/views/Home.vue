@@ -7,6 +7,7 @@
     <about :imgLink="background2.link"></about>
     <process></process>
     <intro :articleBG="article.link" :imgAlt="article.name" :darker="true"></intro>
+    <record :title="record.title"></record>
   </div>
 </template>
 
@@ -15,13 +16,15 @@ import banner from "@/components/Home/Banner.vue";
 import about from "@/components/Home/About.vue";
 import process from "@/components/Home/Process.vue";
 import intro from '@/components/Home/Article.vue';
+import record from '@/components/Home/Record.vue';
 
 export default {
   components: {
     banner,
     about,
     process,
-    intro
+    intro,
+    record
   },
   data() {
     return {
@@ -36,6 +39,12 @@ export default {
       article: {
         link: require('@/static/img/article.jpg'),
         name: "Article Background"
+      },
+      record:{
+        title:{
+          pri: 'Records',
+          sub: false
+        }
       }
     };
   },
