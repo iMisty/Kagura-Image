@@ -100,7 +100,7 @@ export default {
 .index-article-wrap {
   position: relative;
   display: grid;
-  grid-template-rows: 1fr 2fr;
+  grid-template-rows: 1fr 3fr;
   grid-template-columns: 1fr 1fr;
   grid-gap: 2rem;
   padding-top: 80px;
