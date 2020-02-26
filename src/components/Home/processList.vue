@@ -82,7 +82,7 @@ export default {
     }
   }
   .list-medium{
-    margin: 2rem 0;
+    margin: 2rem auto;
     max-width: 200px;
     img{
       width: 100%;

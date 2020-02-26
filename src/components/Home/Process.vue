@@ -43,7 +43,6 @@ export default {
 <style lang='less' scoped>
 .index-process {
   padding: 80px 2%;
-  margin: 80px 2%;
 }
 .process-lists {
   display: grid;
