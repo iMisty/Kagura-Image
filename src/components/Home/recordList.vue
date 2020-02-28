@@ -61,7 +61,8 @@ export default {
     },
     title: {
       type: String,
-      default: "Lorem Title"
+      default:
+        "Lorem Title Lorem Title Lorem Title Lorem Title Lorem Title Lorem Title"
     },
     text: {
       type: String,
@@ -91,11 +92,11 @@ export default {
   grid-template-columns: 1.2fr 1fr;
   grid-gap: 4rem;
   grid-auto-flow: row dense;
-  grid-template-areas: 'img text';
+  grid-template-areas: "img text";
   text-align: left;
-  &:nth-child(2n){
+  &:nth-child(2n) {
     grid-template-columns: 1fr 1.2fr;
-    .records-item-img{
+    .records-item-img {
       grid-column-start: 2;
     }
   }
@@ -106,7 +107,7 @@ export default {
     a {
       &::before {
         opacity: 1;
-        transition-duration: .4s;
+        transition-duration: 0.4s;
       }
       img {
         transform: scale(1.04);
@@ -119,7 +120,7 @@ export default {
     display: block;
     height: 100%;
     overflow: hidden;
-    transition-duration: .4s;
+    transition-duration: 0.4s;
     &::before {
       content: "";
       position: absolute;
@@ -130,7 +131,7 @@ export default {
       z-index: 4;
       background-color: rgba(209, 238, 226, 0.32);
       opacity: 0;
-      transition-duration: .4s;
+      transition-duration: 0.4s;
     }
     img {
       display: block;
@@ -186,6 +187,10 @@ export default {
       margin: 0;
     }
     h2 {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
       font-size: 4rem;
       font-weight: 800;
       letter-spacing: 0.36rem;
