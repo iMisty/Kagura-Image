@@ -16,6 +16,8 @@
       </div>
     </nav>
     <router-view />
+    <ys-footer></ys-footer>
+    <copyright></copyright>
   </div>
 </template>
 
@@ -23,9 +25,13 @@
 // eslint-disable-next-line no-unused-vars
 import BufferAnimation from "vue-scroll-buffer";
 //import language from '@/components/Global/language.vue';
+import ysFooter from "@/components/Global/Footer.vue";
+import copyright from "@/components/Global/Copyright.vue";
 export default {
   components: {
-    //language
+    //language,
+    ysFooter,
+    copyright
   },
   data() {
     return {
@@ -68,14 +74,14 @@ export default {
   width: 100%;
   z-index: 12;
   font-size: 2rem;
-  transition-duration: .4s;
+  transition-duration: 0.4s;
   .nav-wrap {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 16px 4%;
-    transition-duration: .4s;
+    transition-duration: 0.4s;
   }
   a {
     font-weight: bold;
@@ -120,13 +126,13 @@ export default {
     }
   }
 }
-#nav.js-fixed{
+#nav.js-fixed {
   background-color: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,.08);
-  transition-duration: .4s;
-  .nav-wrap{
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition-duration: 0.4s;
+  .nav-wrap {
     padding: 8px 2%;
-    transition-duration: .4s;
+    transition-duration: 0.4s;
   }
 }
 </style>
