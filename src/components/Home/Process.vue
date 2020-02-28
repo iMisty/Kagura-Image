@@ -1,5 +1,5 @@
 <template>
-  <div class="index-process">
+  <div class="index-process wrap">
     <Title :priTitle="title"></Title>
     <div class="process-lists">
       <process-list :listNum="num" :ifTranslated="true" :style="{ 'marginTop':Math.random(120)*4+'rem' }"></process-list>
