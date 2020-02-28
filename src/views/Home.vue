@@ -66,12 +66,7 @@ export default {
           // eslint-disable-next-line no-console
           console.log(error);
         });
-    },
-    getID() {
-      const a = this.ace;
-      // eslint-disable-next-line no-console
-      console.log(a);
-    },
+    }
 
   },
   created() {},
