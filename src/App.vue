@@ -11,6 +11,7 @@
           <router-link to="/blogs">Blog</router-link>
           <router-link to="/works">Works</router-link>
           <router-link to="/contact">Contact</router-link>
+          <!--<language></language>-->
         </div>
       </div>
     </nav>
@@ -21,8 +22,11 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import BufferAnimation from "vue-scroll-buffer";
+//import language from '@/components/Global/language.vue';
 export default {
-  components: {},
+  components: {
+    //language
+  },
   data() {
     return {
       navBg: false,
@@ -35,10 +39,6 @@ export default {
     getScroll() {
       this.scroll =
         document.documentElement.scrollTop || document.body.scrollTop;
-      // eslint-disable-next-line no-console
-      console.log(this.scroll);
-      // eslint-disable-next-line no-console
-      console.log(this.navBg);
       if (this.scroll >= 300) {
         this.navBg = true;
       } else {
@@ -87,6 +87,9 @@ export default {
   }
 }
 .navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   transition-duration: 0.4s;
   &:hover a {
     filter: opacity(0.4);
@@ -108,7 +111,7 @@ export default {
       background-color: rgba(0, 0, 0, 0.38);
       transform: rotate(30deg);
     }
-    &:last-child::after {
+    &:nth-last-child(1)::after {
       width: 0;
       height: 0;
     }
