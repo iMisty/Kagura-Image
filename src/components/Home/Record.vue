@@ -64,7 +64,7 @@ export default {
           img: require("@/static/img/test3.jpg")
         },
         date: '2020-02-27',
-        title: "Lorem Title"
+        title: "Lorem Title Lorem Title Lorem Title Lorem Title Lorem Title"
         //text: ''
       }
     };
