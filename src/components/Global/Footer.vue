@@ -1,6 +1,6 @@
 <template>
 <div class="footer">
-
+  
 </div>
 </template>
 
@@ -35,5 +35,8 @@ export default {
 </script>
 
 <style lang='less' scoped>
-
+.footer{
+  background-color: #222;
+  color: #fff;
+}
 </style>
