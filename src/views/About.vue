@@ -1,15 +1,25 @@
 <template>
   <div class="about">
-    This is About
+    <Title :imgLink="title.background"></Title>
   </div>
 </template>
 
 <script>
+import Title from '@/components/About/title.vue';
 export default {
   //组件
-  components: {},
+  components: {
+    Title
+  },
   //静态
   props: {},
+  data(){
+    return{
+      title:{
+        background: require('@/static/img/test1.jpg')
+      }
+    }
+  },
   //对象内部的属性监听，也叫深度监听
   watch: {},
   //属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。主要当作属性来使用；
@@ -24,4 +34,3 @@ export default {
 
 <style lang='less' scoped>
 </style>
-about
