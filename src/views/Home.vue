@@ -8,6 +8,7 @@
     <process></process>
     <intro :articleBG="article.link" :imgAlt="article.name" :darker="true"></intro>
     <record :title="record.title"></record>
+    <contact></contact>
   </div>
 </template>
 
@@ -17,6 +18,7 @@ import about from "@/components/Home/About.vue";
 import process from "@/components/Home/Process.vue";
 import intro from '@/components/Home/Article.vue';
 import record from '@/components/Home/Record.vue';
+import contact from '@/components/Home/Contact.vue';
 
 export default {
   components: {
@@ -24,7 +26,8 @@ export default {
     about,
     process,
     intro,
-    record
+    record,
+    contact
   },
   data() {
     return {
