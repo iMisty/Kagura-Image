@@ -1,7 +1,7 @@
 <template>
   <div class="copyright">
     <div class="wrap">
-      <p class="icp">{{icp}}</p>
+      <p class="icp" v-show="icp !== '粤ICP备-备你妈的案'">{{icp}}</p>
       <p class="copyright-text">© {{dateStart}} - {{dateNow}} {{copyright}} All Rights Reserved.</p>
     <top></top>
     </div>
