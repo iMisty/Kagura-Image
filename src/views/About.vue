@@ -1,17 +1,17 @@
 <template>
   <div class="about">
-    <Title :imgLink="title.background"></Title>
+    <inner-title :imgLink="title.background"></inner-title>
     <wrap></wrap>
   </div>
 </template>
 
 <script>
-import Title from '@/components/About/title.vue';
+import innerTitle from '@/components/Global/inner-title.vue';
 import wrap from '@/components/About/wrap.vue';
 export default {
   //组件
   components: {
-    Title,wrap
+    innerTitle,wrap
   },
   //静态
   props: {},
