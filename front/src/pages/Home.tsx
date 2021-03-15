@@ -8,11 +8,20 @@
  * @Version:
  */
 import { defineComponent } from 'vue';
+import upload from '../components/upload';
 
 const home = defineComponent({
+  components: {
+    upload,
+  },
   setup() {},
   render() {
-    return <div>1111111</div>;
+    return (
+      <div>
+        1111111
+        <upload></upload>
+      </div>
+    );
   },
 });
 
