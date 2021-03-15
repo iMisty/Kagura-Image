@@ -17,8 +17,10 @@ export default defineConfig({
   server: {
     port: 7478,
   },
-  alias: {
-    '@': path.resolve('.', 'src'),
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
   },
   plugins: [vue(), vueJSX()],
 });
