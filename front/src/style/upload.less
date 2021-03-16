@@ -1,0 +1,55 @@
+@import './variable.less';
+
+.upload {
+  position: relative;
+  top: -6rem;
+  margin: 0 auto;
+  padding: 4rem;
+  &--content {
+    position: relative;
+    display: grid;
+    grid-template-rows: 4rem 1fr;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 2rem;
+    width: 32rem;
+    height: 100%;
+    border-radius: 3rem;
+  }
+  // 上传图标
+  &--icon {
+    align-self: center;
+    margin: 0 auto;
+    width: 2rem;
+    height: 2rem;
+    background-image: url('../assets/upload.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+  // 文字
+  &--text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    & > .pri {
+      color: @header-text;
+      font-size: @fontsize-h4;
+    }
+    & > .sec-text {
+      align-self: flex-end;
+    }
+    & > .sec-text > .sec {
+      color: @description-text;
+      font-size: @fontsize-p * 0.75;
+    }
+  }
+  // 单项上传按钮
+  #upload {
+    .position(absolute,0,0,100%,100%);
+    opacity: 0;
+  }
+}
+.border {
+  border: 0.2rem dashed #616778;
+}
