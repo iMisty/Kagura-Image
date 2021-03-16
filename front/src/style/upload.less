@@ -2,7 +2,9 @@
 
 .upload {
   position: relative;
-  top: -6rem;
+  // top: -6rem;
+  display: grid;
+  grid-template-rows: 14rem 1fr;
   margin: 0 auto;
   padding: 4rem;
   &--content {
@@ -14,7 +16,7 @@
     padding: 2rem;
     width: 32rem;
     height: 100%;
-    border-radius: 3rem;
+    border-radius: 1rem;
   }
   // 上传图标
   &--icon {
@@ -48,6 +50,15 @@
   #upload {
     .position(absolute,0,0,100%,100%);
     opacity: 0;
+  }
+  // 列表
+  &--list {
+    display: grid;
+    gap: 1rem;
+    padding: 1.5rem;
+    margin-top: 4rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 1rem;
   }
 }
 .border {

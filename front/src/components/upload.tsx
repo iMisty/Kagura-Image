@@ -7,16 +7,19 @@
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\components\upload.tsx
  * @Version: 1.0
  */
-import { defineComponent, onMounted, reactive } from 'vue';
+import { defineComponent, onMounted, provide, reactive } from 'vue';
 import uploadFileList from '../components/uploadFileList';
-
-import updateFileList from '../components/uploadFileList';
-
 import '../style/upload.less';
 
 const data: any = reactive({
   border: true,
-  fileList: [],
+  fileList: [
+    {
+      url: 'https://s3.ax1x.com/2021/03/17/6yqjPg.jpg',
+      Progress: 0,
+      fileText: '3c5cebf81a4c510feb099d5c7759252dd52aa5bb.jpg',
+    },
+  ],
 });
 
 // method: 拖拽上传
@@ -103,9 +106,10 @@ const Upload = defineComponent({
   },
   render() {
     return (
-      <div class={`upload`} id="drop-area">
+      <div class={`upload`}>
         <div
           class={`upload--content ${this.data.border === true ? 'border' : ''}`}
+          id="drop-area"
         >
           <div class="upload--icon"></div>
           <div class="upload--text">
@@ -119,32 +123,24 @@ const Upload = defineComponent({
             </div>
           </div>
         </div>
-        <div class="upload--list">
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list> 
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list> 
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-          <upload-list></upload-list>
-        </div>
+        {this.data.fileList.length !== 0 ? (
+          <div class="upload--list">
+            {
+              /* TODO: Fix any */
+              this.data.fileList.map((item: any) => {
+                return (
+                  <upload-list
+                    url={item.url}
+                    progress={item.progress}
+                    fileText={item.fileText }
+                  ></upload-list>
+                );
+              })
+            }
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     );
   },
