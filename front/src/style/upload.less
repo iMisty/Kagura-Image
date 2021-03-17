@@ -7,6 +7,7 @@
   grid-template-rows: 14rem 1fr;
   margin: 0 auto;
   padding: 4rem;
+
   &--content {
     position: relative;
     display: grid;
@@ -16,14 +17,15 @@
     padding: 2rem;
     width: 32rem;
     height: 100%;
-    border-radius: 1rem;
+    border-radius: @border-radius;
+    border: 0.2rem dashed darken(#616778, 20%);
   }
   // 上传图标
   &--icon {
     align-self: center;
     margin: 0 auto;
-    width: 2rem;
-    height: 2rem;
+    width: 4rem;
+    height: 4rem;
     background-image: url('../assets/upload.svg');
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -34,9 +36,10 @@
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
-    & > .pri {
-      color: @header-text;
-      font-size: @fontsize-h4;
+    & .pri {
+      color: @description-text;
+      font-size: @fontsize-h5;
+      font-weight: 400;
     }
     & > .sec-text {
       align-self: flex-end;
@@ -57,10 +60,12 @@
     gap: 1rem;
     padding: 1.5rem;
     margin-top: 4rem;
+    max-height: 21rem;
     background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 1rem;
+    border-radius: @border-radius;
+    overflow: auto;
   }
 }
 .border {
-  border: 0.2rem dashed #616778;
+  border: 0.2rem dashed @description-text;
 }
