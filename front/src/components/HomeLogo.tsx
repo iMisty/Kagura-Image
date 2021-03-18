@@ -10,7 +10,7 @@
 import { defineComponent, reactive } from 'vue';
 import '../style/logo.less';
 
-import LogoImg from '../assets/logo.png';
+import LogoImg from '../assets/logo_w.png';
 
 const data = reactive({});
 
@@ -24,7 +24,6 @@ const Logo = defineComponent({
     return (
       <div class="logo">
         <img class="logo--img" src={LogoImg} />
-        <h4 class="logo--text">Kagura</h4>
       </div>
     );
   },
