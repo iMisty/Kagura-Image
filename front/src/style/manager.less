@@ -17,7 +17,8 @@
     &__item {
       display: grid;
       grid-template-rows: auto 2rem;
-      justify-content: center;
+      // justify-content: center;
+      justify-items: stretch;
       align-items: center;
       gap: 0.5rem;
       padding: 1rem;
@@ -27,7 +28,7 @@
         height: 14rem;
         object-fit: cover;
       }
-      &>.text{
+      & > .text {
         text-align: center;
       }
     }
