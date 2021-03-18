@@ -23,13 +23,18 @@
       gap: 0.5rem;
       padding: 1rem;
       max-width: 16rem;
+      // 图片详情图片
       & > .img {
         max-width: 100%;
         height: 14rem;
         object-fit: cover;
       }
+      // 图片详情文字
       & > .text {
         text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
     }
   }
