@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 12:16:25
- * @LastEditTime: 2021-03-16 14:47:00
+ * @LastEditTime: 2021-03-18 13:13:53
  * @LastEditors: Miya
  * @Description: Router
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\router\router.ts
@@ -18,7 +18,11 @@ const routes = [
   },
   {
     path: '/test',
-    component: () => import('../pages/test')
+    component: () => import('../pages/test'),
+  },
+  {
+    path: '/manager',
+    component: () => import('../pages/Manager'),
   },
   {
     path: '/install',
