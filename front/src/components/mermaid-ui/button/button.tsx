@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2020-09-03 17:08:06
- * @LastEditTime: 2021-03-17 15:51:51
+ * @LastEditTime: 2021-03-19 12:08:29
  * @LastEditors: Miya
  * @Description: Button component in Mermaid UI
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\components\mermaid-ui\button\button.tsx
@@ -42,7 +42,7 @@
 //   );
 // }
 // }
-import { defineComponent, reactive, renderSlot } from 'vue';
+import { defineComponent, EmitsOptions, reactive, renderSlot } from 'vue';
 import './button.less';
 
 const data = reactive({});
@@ -50,8 +50,6 @@ const data = reactive({});
 const handleClick = () => {
   console.log('click button');
 };
-
-const slots = {};
 
 const MermaidUIButton = defineComponent({
   name: 'MermaidUIButton',
@@ -73,7 +71,7 @@ const MermaidUIButton = defineComponent({
     },
   },
   emits: ['clickevent'],
-  setup() {
+  setup(props, ctx) {
     data;
     return { data };
   },
