@@ -1,0 +1,28 @@
+@import '../style/variable.less';
+
+.manager--model {
+  .layout(flex,row,center,center);
+  .position(fixed,0,0,100%,100%);
+  &__container {
+    position: relative;
+    padding: 1rem;
+    z-index: 5;
+  }
+  &__image {
+    .layout(flex,row,center,normal);
+    height: 10rem;
+    & > img {
+      max-width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__options {
+    // padding: 0 1rem;
+  }
+}
+.wrap {
+  padding: 0 1rem;
+  min-width: 32rem;
+}

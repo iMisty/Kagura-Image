@@ -1,13 +1,14 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-18 11:26:09
- * @LastEditTime: 2021-03-18 18:06:24
+ * @LastEditTime: 2021-03-19 14:56:24
  * @LastEditors: Miya
  * @Description: 文件管理页面
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\pages\Manager.tsx
  * @Version: 1.0
  */
 import { defineComponent, reactive } from 'vue';
+import Model from '../components/ManagerModel';
 import Card from '../components/mermaid-ui/card/card';
 import '../style/manager.less';
 
@@ -134,13 +135,11 @@ const data = reactive({
   fileView: [{}],
 });
 
-// 测试用图片
-const mock = 'https://www.hualigs.cn/image/6052dfb1e0b49.jpg';
-
 const Manager = defineComponent({
   name: 'Manager',
   components: {
     'm-card': Card,
+    'manager-model': Model,
   },
   setup() {
     data;
@@ -175,6 +174,7 @@ const Manager = defineComponent({
             <section class="manager--list__page">123456789</section>
           </section>
         </m-card>
+        <manager-model></manager-model>
       </div>
     );
   },

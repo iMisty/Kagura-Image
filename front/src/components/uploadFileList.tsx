@@ -1,13 +1,14 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-16 15:18:26
- * @LastEditTime: 2021-03-17 16:18:53
+ * @LastEditTime: 2021-03-19 14:38:59
  * @LastEditors: Miya
  * @Description: 欲上传文件列表
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\components\uploadFileList.tsx
  * @Version: 1.0
  */
 import { defineComponent } from 'vue';
+import Card from './mermaid-ui/card/card';
 import Button from './mermaid-ui/button/button';
 import '../style/uploadFileList.less';
 
@@ -20,6 +21,7 @@ import '../style/uploadFileList.less';
 const uploadFileList = defineComponent({
   components: {
     'm-button': Button,
+    'm-card': Card,
   },
   emits: ['delete', 'update'],
   props: {
