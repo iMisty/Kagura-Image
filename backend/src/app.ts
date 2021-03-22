@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-14 17:35:13
- * @LastEditTime: 2021-03-15 17:58:40
+ * @LastEditTime: 2021-03-22 17:29:23
  * @LastEditors: Miya
  * @Description: APP config
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\backend\src\app.ts
@@ -9,22 +9,45 @@
  */
 
 const Koa = require('koa');
-const bodyparser = require('koa-bodyparser');
+// const bodyparser = require('koa-bodyparser');
+const path = require('path');
 const logger = require('koa-logger');
 const assets = require('koa-static');
+const cors = require('koa2-cors');
+
+const body2 = require('koa-body');
 
 import router from './router/index';
 
 const app = new Koa();
 
 // middlewares
+app.use(cors());
+app.use(logger());
+// app.use(
+//   bodyparser({
+//     enableTypes: ['json', 'form'],
+//     multipart: true,
+//     formidable: {
+//       maxFileSize: 20000 * 1024 * 1024,
+//     },
+//   })
+// );
+
 app.use(
-  bodyparser({
-    enableTypes: ['json', 'form'],
+  body2({
+    multipart: true,
+    formidable: {
+      maxFileSize: 20000 * 1024 * 1024,
+      // 上传目录
+      uploadDir: path.join(__dirname, '/upload'),
+      // 保留文件扩展名
+      keepExtensions: true,
+    },
   })
 );
-app.use(logger());
-app.use(assets(__dirname + '/assets'));
+
+app.use(assets(__dirname + '/upload'));
 
 app.use(router());
 app.listen(12450);
@@ -36,4 +59,4 @@ app.use(async (ctx: any, next: any) => {
   console.log(`${ctx.method} ${ctx.url}`);
 });
 
-console.log('APP is Listening on Port 12450')
+console.log('APP is Listening on Port 12450');
