@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 18:05:02
- * @LastEditTime: 2021-03-18 16:25:50
+ * @LastEditTime: 2021-03-22 16:19:49
  * @LastEditors: Miya
  * @Description: 拖拽上传文件组件
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\components\UploadFile.tsx
@@ -10,6 +10,8 @@
 import { defineComponent, onMounted, reactive } from 'vue';
 import uploadFileList from './UploadFileList';
 import '../style/upload.less';
+
+import axios from 'axios';
 
 interface upload {
   url: String;
@@ -31,7 +33,7 @@ const data: any = reactive({
 // method: 拖拽上传
 // TODO: 检测非图片
 // TODO: 限制预上传大小
-const uploadEvent = (file: any) => {
+const uploadEvent = async (file: any) => {
   for (let i = 0; i !== file.length; i++) {
     // 文件信息
     const fileJSON = {
@@ -49,7 +51,22 @@ const uploadEvent = (file: any) => {
       data.fileList.push(fileJSON);
     }
   }
-  console.log(data.fileList);
+
+  const target = data.fileList[0].url;
+
+  console.log(`Res: ${target}`);
+
+  const formData = new FormData();
+
+  for(let file of Object.values(target)){
+    formData.append('avatar',file as Blob)
+  }
+
+  const res = await axios.get('/api/dir',{
+    data: formData
+  })
+
+  console.log(res);
 };
 
 // method: 单击上传
