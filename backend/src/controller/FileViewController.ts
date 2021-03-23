@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-22 10:11:32
- * @LastEditTime: 2021-03-22 17:37:41
+ * @LastEditTime: 2021-03-23 11:05:19
  * @LastEditors: Miya
  * @Description: 文件管理
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\backend\src\controller\FileViewController.ts
@@ -34,11 +34,11 @@ class FileView {
 
   // 上传单个图片
   public static async uploadImage(ctx: any) {
-    const file = ctx.request.files.file;
-    console.log(file);
+    const image = ctx.request.files.image;
+    console.log(image);
     try {
       ctx.body = {
-        file,
+        image,
       };
     } catch (error) {
       ctx.body = {

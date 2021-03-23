@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 18:05:02
- * @LastEditTime: 2021-03-22 16:19:49
+ * @LastEditTime: 2021-03-23 12:19:45
  * @LastEditors: Miya
  * @Description: 拖拽上传文件组件
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\components\UploadFile.tsx
@@ -10,6 +10,7 @@
 import { defineComponent, onMounted, reactive } from 'vue';
 import uploadFileList from './UploadFileList';
 import '../style/upload.less';
+import { UploadRequest } from '../utils/request';
 
 import axios from 'axios';
 
@@ -28,12 +29,15 @@ const data: any = reactive({
     //   fileText: '3c5cebf81a4c510feb099d5c7759252dd52aa5bb.jpg',
     // },
   ],
+  tempFile: [],
 });
 
 // method: 拖拽上传
 // TODO: 检测非图片
 // TODO: 限制预上传大小
 const uploadEvent = async (file: any) => {
+  data.tempFile.push(file);
+  console.log(data.tempFile);
   for (let i = 0; i !== file.length; i++) {
     // 文件信息
     const fileJSON = {
@@ -51,22 +55,6 @@ const uploadEvent = async (file: any) => {
       data.fileList.push(fileJSON);
     }
   }
-
-  const target = data.fileList[0].url;
-
-  console.log(`Res: ${target}`);
-
-  const formData = new FormData();
-
-  for(let file of Object.values(target)){
-    formData.append('avatar',file as Blob)
-  }
-
-  const res = await axios.get('/api/dir',{
-    data: formData
-  })
-
-  console.log(res);
 };
 
 // method: 单击上传
@@ -86,6 +74,23 @@ const eventDrop = (e: any) => {
   const fileData = e.dataTransfer.files;
   console.log(fileData);
   uploadEvent(fileData);
+};
+
+const uploadImage = async (index: Number) => {
+  console.log(index);
+  const tempData = data.tempFile[0][index as number];
+  console.log(tempData);
+
+  let params = new FormData();
+  let config = {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  }; //添加请求头
+
+  params.append('image', tempData, tempData.name);
+
+  const b = await axios.post('/api/dir', params, config);
+
+  console.log(b);
 };
 
 // 进入拖动区触发
@@ -151,7 +156,9 @@ const UploadFile = defineComponent({
           <div class="upload--text">
             <div class="pri-text">
               <h4 class="pri">拖拽上传或点击上传</h4>
-              <input type="file" name="upload" id="upload" />
+              <form action="/api/dir" method="post">
+                <input type="file" name="image" id="upload" />
+              </form>
             </div>
             <div class="sec-text">
               <p class="sec">大小上限20MB，格式限制jpg / png / gif</p>
@@ -171,6 +178,7 @@ const UploadFile = defineComponent({
                     fileText={item.fileText}
                     data-index={index}
                     onDelete={() => deleteUploadImage(index)}
+                    onUpdate={() => uploadImage(index)}
                   ></upload-list>
                 );
               })
