@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-14 17:35:13
- * @LastEditTime: 2021-03-22 17:29:23
+ * @LastEditTime: 2021-03-23 15:41:40
  * @LastEditors: Miya
  * @Description: APP config
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\backend\src\app.ts
@@ -9,13 +9,13 @@
  */
 
 const Koa = require('koa');
-// const bodyparser = require('koa-bodyparser');
 const path = require('path');
 const logger = require('koa-logger');
 const assets = require('koa-static');
 const cors = require('koa2-cors');
-
 const body2 = require('koa-body');
+const Mongoose = require('mongoose');
+const dbConfig = require('./config/db');
 
 import router from './router/index';
 
@@ -24,16 +24,6 @@ const app = new Koa();
 // middlewares
 app.use(cors());
 app.use(logger());
-// app.use(
-//   bodyparser({
-//     enableTypes: ['json', 'form'],
-//     multipart: true,
-//     formidable: {
-//       maxFileSize: 20000 * 1024 * 1024,
-//     },
-//   })
-// );
-
 app.use(
   body2({
     multipart: true,
@@ -57,6 +47,12 @@ app.use(async (ctx: any, next: any) => {
   const start: Date = new Date();
   await next();
   console.log(`${ctx.method} ${ctx.url}`);
+});
+
+// 连接数据库
+Mongoose.connect(dbConfig.image, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 console.log('APP is Listening on Port 12450');
