@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 18:05:02
- * @LastEditTime: 2021-03-23 12:19:45
+ * @LastEditTime: 2021-03-23 15:09:20
  * @LastEditors: Miya
  * @Description: 拖拽上传文件组件
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\components\UploadFile.tsx
@@ -76,21 +76,18 @@ const eventDrop = (e: any) => {
   uploadEvent(fileData);
 };
 
+/**
+ * @description 上传图片至服务器
+ * @param index 上传文件位于队列的顺序
+ */
 const uploadImage = async (index: Number) => {
   console.log(index);
   const tempData = data.tempFile[0][index as number];
   console.log(tempData);
 
-  let params = new FormData();
-  let config = {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  }; //添加请求头
+  const res = await UploadRequest('/api/dir', tempData);
 
-  params.append('image', tempData, tempData.name);
-
-  const b = await axios.post('/api/dir', params, config);
-
-  console.log(b);
+  console.log(res);
 };
 
 // 进入拖动区触发
