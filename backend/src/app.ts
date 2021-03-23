@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-14 17:35:13
- * @LastEditTime: 2021-03-23 15:41:40
+ * @LastEditTime: 2021-03-23 16:46:57
  * @LastEditors: Miya
  * @Description: APP config
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\backend\src\app.ts
@@ -50,9 +50,15 @@ app.use(async (ctx: any, next: any) => {
 });
 
 // 连接数据库
-Mongoose.connect(dbConfig.image, {
+Mongoose.connect(dbConfig.db, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+})
+  .then(() => {
+    console.log('MongoDB is Listening on Port 27471');
+  })
+  .catch((err: any) => {
+    console.log(err);
+  });
 
 console.log('APP is Listening on Port 12450');

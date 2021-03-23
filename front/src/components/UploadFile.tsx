@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 18:05:02
- * @LastEditTime: 2021-03-23 15:09:20
+ * @LastEditTime: 2021-03-23 18:02:16
  * @LastEditors: Miya
  * @Description: 拖拽上传文件组件
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\components\UploadFile.tsx
@@ -85,7 +85,7 @@ const uploadImage = async (index: Number) => {
   const tempData = data.tempFile[0][index as number];
   console.log(tempData);
 
-  const res = await UploadRequest('/api/dir', tempData);
+  const res = await UploadRequest('/api/image', tempData);
 
   console.log(res);
 };

@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-22 10:11:32
- * @LastEditTime: 2021-03-23 15:48:53
+ * @LastEditTime: 2021-03-23 18:07:24
  * @LastEditors: Miya
  * @Description: 文件管理
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\backend\src\controller\FileViewController.ts
@@ -9,6 +9,8 @@
  */
 
 const fs = require('fs');
+
+const DBC = require('../controller/DataBaseController');
 
 class FileView {
   // 读取根目录
@@ -33,6 +35,7 @@ class FileView {
   }
 
   // 上传单个图片
+  // TODO: 增加时间字段
   public static async uploadImage(ctx: any) {
     // 用户输入图片信息
     const image = ctx.request.files.image;
@@ -46,11 +49,17 @@ class FileView {
       path: `/upload_${resPath[1]}`,
     };
 
+    console.log(data);
+
+    // 录入数据库
+    const db = await DBC.addNewImage(data);
+
     try {
       ctx.body = {
         code: 1,
         msg: '上传成功',
-        data
+        data,
+        db,
       };
     } catch (error) {
       ctx.body = {
