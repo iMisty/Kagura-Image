@@ -42,6 +42,9 @@ class FileView {
     // 截取地址
     const resPath = image.path.split('upload_');
 
+    // 格式化时间
+    
+
     // 输出数据
     const data = {
       size: image.size,
