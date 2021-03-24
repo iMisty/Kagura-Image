@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-22 10:11:32
- * @LastEditTime: 2021-03-23 18:07:24
+ * @LastEditTime: 2021-03-24 09:39:10
  * @LastEditors: Miya
  * @Description: 文件管理
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\backend\src\controller\FileViewController.ts
@@ -47,6 +47,7 @@ class FileView {
       size: image.size,
       name: image.name,
       path: `/upload_${resPath[1]}`,
+      time: image.mtime,
     };
 
     console.log(data);
