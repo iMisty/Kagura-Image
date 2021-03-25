@@ -1,12 +1,14 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-22 10:11:32
- * @LastEditTime: 2021-03-24 09:39:10
+ * @LastEditTime: 2021-03-25 15:08:51
  * @LastEditors: Miya
  * @Description: 文件管理
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\backend\src\controller\FileViewController.ts
  * @Version: 1.0
  */
+
+import { formatDate } from '../util/formatDate';
 
 const fs = require('fs');
 
@@ -39,18 +41,18 @@ class FileView {
   public static async uploadImage(ctx: any) {
     // 用户输入图片信息
     const image = ctx.request.files.image;
+    console.log(image)
     // 截取地址
     const resPath = image.path.split('upload_');
 
     // 格式化时间
-    
 
     // 输出数据
     const data = {
       size: image.size,
       name: image.name,
       path: `/upload_${resPath[1]}`,
-      time: image.mtime,
+      time: formatDate(image.lastModifiedDate),
     };
 
     console.log(data);

@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-23 15:35:17
- * @LastEditTime: 2021-03-23 18:05:01
+ * @LastEditTime: 2021-03-25 15:01:55
  * @LastEditors: Miya
  * @Description: 数据库操作
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\backend\src\controller\DataBaseController.ts
@@ -14,6 +14,7 @@ interface Image {
   size: Number;
   name: String;
   path: String;
+  time: String;
 }
 
 class DBController {
@@ -23,6 +24,7 @@ class DBController {
       size: image.size,
       name: image.name,
       path: image.path,
+      time: image.time,
     });
     try {
       await result.save();
@@ -60,4 +62,4 @@ class DBController {
   }
 }
 
-module.exports = DBController
+module.exports = DBController;
