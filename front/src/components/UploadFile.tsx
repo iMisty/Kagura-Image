@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 18:05:02
- * @LastEditTime: 2021-03-23 18:02:16
+ * @LastEditTime: 2021-03-25 18:12:59
  * @LastEditors: Miya
  * @Description: 拖拽上传文件组件
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\components\UploadFile.tsx
@@ -30,6 +30,7 @@ const data: any = reactive({
     // },
   ],
   tempFile: [],
+  fileInfo: undefined
 });
 
 // method: 拖拽上传
@@ -44,6 +45,7 @@ const uploadEvent = async (file: any) => {
       url: '',
       Progress: 0,
       fileText: '',
+      res: {},
     };
     if (file[i].type.indexOf('image') === 0) {
       // 上传图片开启缩略图
@@ -55,12 +57,6 @@ const uploadEvent = async (file: any) => {
       data.fileList.push(fileJSON);
     }
   }
-};
-
-// method: 单击上传
-// TODO: fix any
-const handleClickUpload = (e: any) => {
-  console.log(e);
 };
 
 // 在触发区松开鼠标触发
@@ -87,7 +83,10 @@ const uploadImage = async (index: Number) => {
 
   const res = await UploadRequest('/api/image', tempData);
 
-  console.log(res);
+  console.log(res.data);
+  if (res.data.code === 1) {
+    data.fileList[index as number].res = res.data.data;
+  }
 };
 
 // 进入拖动区触发
@@ -118,6 +117,11 @@ const deleteUploadImage = (index: Number) => {
   console.log(index);
   return data.fileList.splice(index, 1);
 };
+
+const getImageInfo = (index: Number) => {
+  const info = data.fileList[index as number].res;
+  return data.fileInfo = info;
+}
 
 // 组件相关
 const UploadFile = defineComponent({
@@ -174,6 +178,7 @@ const UploadFile = defineComponent({
                     progress={item.progress}
                     fileText={item.fileText}
                     data-index={index}
+                    onInfo={() => getImageInfo(index)}
                     onDelete={() => deleteUploadImage(index)}
                     onUpdate={() => uploadImage(index)}
                   ></upload-list>
@@ -184,6 +189,9 @@ const UploadFile = defineComponent({
         ) : (
           ''
         )}
+        {
+          this.data.fileInfo !== undefined ? (<div>333</div>) : ''
+        }
       </div>
     );
   },

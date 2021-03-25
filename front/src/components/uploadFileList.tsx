@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-16 15:18:26
- * @LastEditTime: 2021-03-19 14:38:59
+ * @LastEditTime: 2021-03-25 18:07:29
  * @LastEditors: Miya
  * @Description: 欲上传文件列表
- * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\components\uploadFileList.tsx
+ * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\components\UploadFileList.tsx
  * @Version: 1.0
  */
 import { defineComponent } from 'vue';
@@ -23,7 +23,7 @@ const uploadFileList = defineComponent({
     'm-button': Button,
     'm-card': Card,
   },
-  emits: ['delete', 'update'],
+  emits: ['delete', 'update', 'info'],
   props: {
     url: {
       type: String,
@@ -36,6 +36,10 @@ const uploadFileList = defineComponent({
       type: String,
       default: 'test text',
     },
+    isUpdated: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, ctx) {
     // Emit: 删除操作
@@ -46,7 +50,11 @@ const uploadFileList = defineComponent({
     const handleClickUpload = () => {
       ctx.emit('update');
     };
-    return { handleClickUpload, handleClickDelete };
+    // Emit: 查看信息
+    const handleClickInfo = () => {
+      ctx.emit('info');
+    };
+    return { handleClickUpload, handleClickDelete, handleClickInfo };
   },
 
   render() {
@@ -55,6 +63,14 @@ const uploadFileList = defineComponent({
         <img src={this.$props.url} class="upload--item__image" />
         <p class="upload--item__filename">{this.$props.fileText}</p>
         <div class="upload--item__progress"></div>
+        <m-button
+          color="info"
+          onClick={() => {
+            this.handleClickInfo();
+          }}
+        >
+          信息
+        </m-button>
         <m-button
           color="danger"
           onClick={() => {
