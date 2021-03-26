@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-16 14:45:59
- * @LastEditTime: 2021-03-25 17:17:01
+ * @LastEditTime: 2021-03-26 13:21:12
  * @LastEditors: Miya
  * @Description: test
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\pages\test.tsx
@@ -33,7 +33,7 @@ const test = defineComponent({
   render() {
     return (
       <div style="display:flex;justify-content: center;align-items:center;">
-        <m-model></m-model>
+
       </div>
     );
   },

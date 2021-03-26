@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 17:50:14
- * @LastEditTime: 2021-03-23 17:39:52
+ * @LastEditTime: 2021-03-26 14:57:34
  * @LastEditors: Miya
  * @Description: Router index
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\backend\src\router\index.ts
@@ -21,6 +21,8 @@ const index = router.get('/', async (ctx: any) => {
   ctx.body = 'Hello TypeScript';
 });
 
-const routers = CombineRouters(index, UploadRoute);
+const test = router.get('/dir', FileView.getImage);
+
+const routers = CombineRouters(index, UploadRoute,test);
 
 export default routers;

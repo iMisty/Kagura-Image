@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 18:05:02
- * @LastEditTime: 2021-03-25 18:12:59
+ * @LastEditTime: 2021-03-26 15:07:52
  * @LastEditors: Miya
  * @Description: 拖拽上传文件组件
  * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\components\UploadFile.tsx
@@ -30,7 +30,7 @@ const data: any = reactive({
     // },
   ],
   tempFile: [],
-  fileInfo: undefined
+  fileInfo: undefined,
 });
 
 // method: 拖拽上传
@@ -120,8 +120,8 @@ const deleteUploadImage = (index: Number) => {
 
 const getImageInfo = (index: Number) => {
   const info = data.fileList[index as number].res;
-  return data.fileInfo = info;
-}
+  return (data.fileInfo = info);
+};
 
 // 组件相关
 const UploadFile = defineComponent({
@@ -170,7 +170,6 @@ const UploadFile = defineComponent({
         {this.data.fileList.length !== 0 ? (
           <div class="upload--list">
             {
-              /* TODO: Fix any */
               this.data.fileList.map((item: upload, index: Number) => {
                 return (
                   <upload-list
@@ -189,9 +188,7 @@ const UploadFile = defineComponent({
         ) : (
           ''
         )}
-        {
-          this.data.fileInfo !== undefined ? (<div>333</div>) : ''
-        }
+        {this.data.fileInfo !== undefined ? <div>333</div> : ''}
       </div>
     );
   },
