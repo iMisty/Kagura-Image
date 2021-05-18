@@ -1,0 +1,4 @@
+GET http://localhost:12450/image/readdir
+Content-Type: application/x-www-form-urlencoded
+
+dir=./src/upload
