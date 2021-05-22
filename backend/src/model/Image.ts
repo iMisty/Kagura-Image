@@ -10,7 +10,7 @@
 
 import * as Mongoose from 'mongoose';
 /**
- *  @params
+ *  @ params
  *  Size: 图片大小
  *  Name: 图片名称
  *  Path: 图片链接
