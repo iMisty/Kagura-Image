@@ -1,18 +1,16 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 18:05:02
- * @LastEditTime: 2021-03-26 15:07:52
+ * @LastEditTime: 2021-05-29 12:04:50
  * @LastEditors: Miya
  * @Description: 拖拽上传文件组件
- * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\components\UploadFile.tsx
+ * @FilePath: \front\src\components\UploadFile.tsx
  * @Version: 1.0
  */
 import { defineComponent, onMounted, reactive } from 'vue';
 import uploadFileList from './UploadFileList';
 import '../style/upload.less';
 import { UploadRequest } from '../utils/request';
-
-import axios from 'axios';
 
 interface upload {
   url: String;

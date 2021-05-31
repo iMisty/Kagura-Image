@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-23 17:05:19
- * @LastEditTime: 2021-05-23 17:13:50
+ * @LastEditTime: 2021-05-31 11:42:20
  * @LastEditors: Miya
  * @Description: 图片相关
  * @FilePath: \backend\src\router\upload.ts
@@ -21,6 +21,6 @@ router.get('/readdir', File.getRootDirFiles);
 // 获取图片文件名
 router.get('/', File.getImage);
 // 上传单张图片
-router.post('/', Upload.uploadImage);
+router.post('/', Upload.setUploadImage);
 
 export default router;
