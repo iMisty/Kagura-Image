@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2020-09-03 17:08:06
- * @LastEditTime: 2021-03-19 12:08:29
+ * @LastEditTime: 2021-06-02 00:16:05
  * @LastEditors: Miya
  * @Description: Button component in Mermaid UI
- * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\components\mermaid-ui\button\button.tsx
+ * @FilePath: \front\src\components\mermaid-ui\button\button.tsx
  * @Version: 2.0
  */
 // import { Component, Vue, Prop, Emit } from "vue-property-decorator";
@@ -42,7 +42,7 @@
 //   );
 // }
 // }
-import { defineComponent, EmitsOptions, reactive, renderSlot } from 'vue';
+import { defineComponent, reactive, renderSlot } from 'vue';
 import './button.less';
 
 const data = reactive({});
@@ -69,6 +69,10 @@ const MermaidUIButton = defineComponent({
       require: true,
       default: 'regular',
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['clickevent'],
   setup(props, ctx) {
@@ -78,7 +82,9 @@ const MermaidUIButton = defineComponent({
   render() {
     return (
       <button
+        type="button"
         class={`mmui__button mmui__button--${this.color} mmui__button--type-${this.type}-${this.color}`}
+        disabled={this.disabled}
         onClick={handleClick}
       >
         {renderSlot(this.$slots, 'default')}

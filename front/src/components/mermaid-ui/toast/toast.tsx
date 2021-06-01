@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-31 17:32:44
- * @LastEditTime: 2021-06-01 21:24:29
+ * @LastEditTime: 2021-06-01 21:51:35
  * @LastEditors: Miya
  * @Description: Mermaid UI Toast Component
  * @FilePath: \front\src\components\mermaid-ui\toast\toast.tsx
