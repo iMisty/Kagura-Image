@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-16 15:18:26
- * @LastEditTime: 2021-03-25 18:07:29
+ * @LastEditTime: 2021-05-31 13:50:58
  * @LastEditors: Miya
  * @Description: 欲上传文件列表
- * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\components\UploadFileList.tsx
+ * @FilePath: \front\src\components\uploadFileList.tsx
  * @Version: 1.0
  */
 import { defineComponent } from 'vue';
@@ -25,17 +25,21 @@ const uploadFileList = defineComponent({
   },
   emits: ['delete', 'update', 'info'],
   props: {
+    // 上传文件URL地址
     url: {
       type: String,
       default: '222',
     },
+    // TODO: 进度条
     progress: {
       type: Number,
     },
+    // 文件信息
     fileText: {
       type: String,
       default: 'test text',
     },
+    // 是否已上传
     isUpdated: {
       type: Boolean,
       default: false,

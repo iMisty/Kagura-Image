@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 18:05:02
- * @LastEditTime: 2021-05-29 12:04:50
+ * @LastEditTime: 2021-05-31 14:56:19
  * @LastEditors: Miya
  * @Description: 拖拽上传文件组件
  * @FilePath: \front\src\components\UploadFile.tsx
@@ -16,6 +16,14 @@ interface upload {
   url: String;
   progress: Number;
   fileText: String;
+}
+
+interface FileList {
+  lastModified: Number;
+  lastModifiedData: Date;
+  name: string;
+  size: Number;
+  type: string;
 }
 
 const data: any = reactive({
@@ -34,7 +42,7 @@ const data: any = reactive({
 // method: 拖拽上传
 // TODO: 检测非图片
 // TODO: 限制预上传大小
-const uploadEvent = async (file: any) => {
+const uploadEvent = async (file: FileList[]) => {
   data.tempFile.push(file);
   console.log(data.tempFile);
   for (let i = 0; i !== file.length; i++) {
@@ -48,10 +56,8 @@ const uploadEvent = async (file: any) => {
     if (file[i].type.indexOf('image') === 0) {
       // 上传图片开启缩略图
       const fileurl = window.URL.createObjectURL(file[i]);
-      // console.log(fileurl);
       fileJSON.url = fileurl;
       fileJSON.fileText = file[i].name;
-      // console.log(fileJSON);
       data.fileList.push(fileJSON);
     }
   }
@@ -167,26 +173,24 @@ const UploadFile = defineComponent({
         </div>
         {this.data.fileList.length !== 0 ? (
           <div class="upload--list">
-            {
-              this.data.fileList.map((item: upload, index: Number) => {
-                return (
-                  <upload-list
-                    url={item.url}
-                    progress={item.progress}
-                    fileText={item.fileText}
-                    data-index={index}
-                    onInfo={() => getImageInfo(index)}
-                    onDelete={() => deleteUploadImage(index)}
-                    onUpdate={() => uploadImage(index)}
-                  ></upload-list>
-                );
-              })
-            }
+            {this.data.fileList.map((item: upload, index: Number) => {
+              return (
+                <upload-list
+                  url={item.url}
+                  progress={item.progress}
+                  fileText={item.fileText}
+                  data-index={index}
+                  onInfo={() => getImageInfo(index)}
+                  onDelete={() => deleteUploadImage(index)}
+                  onUpdate={() => uploadImage(index)}
+                ></upload-list>
+              );
+            })}
           </div>
         ) : (
           ''
         )}
-        {this.data.fileInfo !== undefined ? <div>333</div> : ''}
+        {/* {this.data.fileInfo !== undefined ? <div>333</div> : ''} */}
       </div>
     );
   },
