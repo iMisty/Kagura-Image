@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2020-09-03 17:08:06
- * @LastEditTime: 2021-06-02 00:16:05
+ * @LastEditTime: 2021-06-03 11:54:19
  * @LastEditors: Miya
  * @Description: Button component in Mermaid UI
  * @FilePath: \front\src\components\mermaid-ui\button\button.tsx

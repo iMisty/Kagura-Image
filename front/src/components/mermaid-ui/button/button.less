@@ -25,6 +25,10 @@
       &:active {
         background-color: darken(#3d55df, 8%);
       }
+      &:disabled{
+        background-color: @primary;
+        border-color: @primary;
+      }
     }
     &--info {
       color: #fff;
@@ -32,6 +36,10 @@
       border-color: #11cdef;
       &:active {
         background-color: darken(#11cdef, 8%);
+      }
+      &:disabled{
+        background-color: @info;
+        border-color: @info;
       }
     }
     &--success {
@@ -211,6 +219,10 @@
       transition-duration: @transition-duration;
     }
     &:active {
+      box-shadow: none;
+    }
+    &:disabled{
+      transform: none;
       box-shadow: none;
     }
   }
