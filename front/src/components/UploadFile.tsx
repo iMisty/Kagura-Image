@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 18:05:02
- * @LastEditTime: 2021-06-03 13:42:16
+ * @LastEditTime: 2021-06-04 00:34:24
  * @LastEditors: Miya
  * @Description: 拖拽上传文件组件
  * @FilePath: \front\src\components\UploadFile.tsx
@@ -13,6 +13,7 @@ import MermaidUIButton from './mermaid-ui/button/button';
 import MermaidUIToast from './mermaid-ui/toast/toast';
 import '../style/upload.less';
 import { UploadRequest } from '../utils/request';
+import { HOST } from '../utils/host';
 
 interface upload {
   url: String;
@@ -52,6 +53,7 @@ const data: any = reactive({
     // },
   ],
   fileInfo: undefined,
+  uploaded: 0,
 });
 
 // 在触发区松开鼠标触发
@@ -113,7 +115,7 @@ const uploadEvent = async (file: FileList[]) => {
       Progress: 0,
       fileText: '',
       status: 'waiting',
-      res: {},
+      res: null,
     };
     if (file[i].type.indexOf('image') === 0) {
       // 上传图片开启缩略图
@@ -131,9 +133,12 @@ const uploadEvent = async (file: FileList[]) => {
  */
 const uploadImage = async (index: number) => {
   console.log(index);
+  if (data.fileList[index].res !== null) {
+    return false;
+  }
   // 切换状态
   data.fileList[index].status = 'uploading';
-  const tempData = data.tempFile[index];
+  const tempData = data.tempFile[0];
   console.log(tempData);
 
   const res = await UploadRequest('/api/image', tempData);
@@ -142,7 +147,23 @@ const uploadImage = async (index: number) => {
   if (res.data.code === 1) {
     data.fileList[index].res = res.data.data;
     data.fileList[index].status = 'successed';
+    data.uploaded += 1;
+    // data.tempFile.splice(0, 1);
   }
+  return true;
+};
+
+/**
+ * @description: 上传多张图片
+ * @param {*}
+ * @return {*}
+ */
+const uploadMultiImage = async () => {
+  const len = data.tempFile.length;
+  for (let i = 0; i < len; i++) {
+    await uploadImage(i);
+  }
+  return true;
 };
 
 /**
@@ -167,11 +188,31 @@ const getImageInfo = (index: number) => {
 };
 
 /**
+ * @description: 清除队列
+ * @param {*}
+ * @return {*}
+ */
+
+/**
  * @description: 复制链接地址
  * @param {Number} index
  * @return {String} link
  */
-const getCopyLink = (index: number) => {};
+const getCopyLink = (index: number) => {
+  const link = `${HOST}/${data.fileList[index].res.path}`;
+
+  let transfer = document.createElement('input');
+  document.body.appendChild(transfer);
+  transfer.value = link;
+  transfer.focus();
+  transfer.select();
+  if (document.execCommand('copy')) {
+    document.execCommand('copy');
+  }
+  transfer.blur();
+  console.log('Copy Successed');
+  document.body.removeChild(transfer);
+};
 
 // 组件相关
 const UploadFile = defineComponent({
@@ -209,7 +250,7 @@ const UploadFile = defineComponent({
             <div class="pri-text">
               <h4 class="pri">拖拽上传或点击上传</h4>
               <form action="/api/dir" method="post">
-                <input type="file" name="image" id="upload" />
+                <input type="file" name="image" id="upload" multiple />
               </form>
             </div>
             <div class="sec-text">
@@ -221,7 +262,12 @@ const UploadFile = defineComponent({
         {this.data.fileList.length !== 0 ? (
           <div class="upload--options">
             <m-button color="danger">清除队列</m-button>
-            <m-button>全部上传</m-button>
+            <m-button
+              disabled={data.fileList.length === data.uploaded}
+              onClick={() => uploadMultiImage()}
+            >
+              全部上传
+            </m-button>
           </div>
         ) : (
           ''
@@ -239,6 +285,7 @@ const UploadFile = defineComponent({
                   onInfo={() => getImageInfo(index as number)}
                   onDelete={() => deleteUploadImage(index as number)}
                   onUpdate={() => uploadImage(index as number)}
+                  onCopy={() => getCopyLink(index as number)}
                 ></upload-list>
               );
             })}
