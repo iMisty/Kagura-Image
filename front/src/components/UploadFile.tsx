@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 18:05:02
- * @LastEditTime: 2021-05-31 14:56:19
+ * @LastEditTime: 2021-06-03 13:42:16
  * @LastEditors: Miya
  * @Description: 拖拽上传文件组件
  * @FilePath: \front\src\components\UploadFile.tsx
@@ -9,6 +9,8 @@
  */
 import { defineComponent, onMounted, reactive } from 'vue';
 import uploadFileList from './UploadFileList';
+import MermaidUIButton from './mermaid-ui/button/button';
+import MermaidUIToast from './mermaid-ui/toast/toast';
 import '../style/upload.less';
 import { UploadRequest } from '../utils/request';
 
@@ -16,6 +18,7 @@ interface upload {
   url: String;
   progress: Number;
   fileText: String;
+  status: String;
 }
 
 interface FileList {
@@ -26,6 +29,10 @@ interface FileList {
   type: string;
 }
 
+interface MouseEventExtra extends MouseEvent {
+  dataTransfer: any;
+}
+
 const data: any = reactive({
   border: true,
   fileList: [
@@ -33,39 +40,23 @@ const data: any = reactive({
     //   url: 'https://s3.ax1x.com/2021/03/17/6yqjPg.jpg',
     //   Progress: 0,
     //   fileText: '3c5cebf81a4c510feb099d5c7759252dd52aa5bb.jpg',
+    //   status: 'successed',
     // },
   ],
-  tempFile: [],
+  tempFile: [
+    // {
+    //   url: 'https://s3.ax1x.com/2021/03/17/6yqjPg.jpg',
+    //   Progress: 0,
+    //   fileText: '3c5cebf81a4c510feb099d5c7759252dd52aa5bb.jpg',
+    //   status: 'successed',
+    // },
+  ],
   fileInfo: undefined,
 });
 
-// method: 拖拽上传
-// TODO: 检测非图片
-// TODO: 限制预上传大小
-const uploadEvent = async (file: FileList[]) => {
-  data.tempFile.push(file);
-  console.log(data.tempFile);
-  for (let i = 0; i !== file.length; i++) {
-    // 文件信息
-    const fileJSON = {
-      url: '',
-      Progress: 0,
-      fileText: '',
-      res: {},
-    };
-    if (file[i].type.indexOf('image') === 0) {
-      // 上传图片开启缩略图
-      const fileurl = window.URL.createObjectURL(file[i]);
-      fileJSON.url = fileurl;
-      fileJSON.fileText = file[i].name;
-      data.fileList.push(fileJSON);
-    }
-  }
-};
-
 // 在触发区松开鼠标触发
 // TODO: fix any
-const eventDrop = (e: any) => {
+const eventDrop = (e: MouseEventExtra) => {
   data.border = true;
   e.stopPropagation();
   e.preventDefault();
@@ -74,23 +65,6 @@ const eventDrop = (e: any) => {
   const fileData = e.dataTransfer.files;
   console.log(fileData);
   uploadEvent(fileData);
-};
-
-/**
- * @description 上传图片至服务器
- * @param index 上传文件位于队列的顺序
- */
-const uploadImage = async (index: Number) => {
-  console.log(index);
-  const tempData = data.tempFile[0][index as number];
-  console.log(tempData);
-
-  const res = await UploadRequest('/api/image', tempData);
-
-  console.log(res.data);
-  if (res.data.code === 1) {
-    data.fileList[index as number].res = res.data.data;
-  }
 };
 
 // 进入拖动区触发
@@ -117,20 +91,94 @@ const eventDragOver = (e: MouseEvent) => {
   console.log('DragOver');
 };
 
-const deleteUploadImage = (index: Number) => {
+/**
+ * @description: 拖拽加载图片至预上传列表
+ * @param {FileList<Array>} 上传图片列表
+ * @return {*}
+ */
+// TODO: 检测非图片提示信息
+// TODO: 限制预上传大小
+const uploadEvent = async (file: FileList[]) => {
+  // if (file.length > 1) {
+  //   console.log('上传多张图片');
+  //   console.log(...file);
+  // }
+  // console.log(...file)
+  data.tempFile.push(...file);
+  console.log(data.tempFile);
+  for (let i = 0; i !== file.length; i++) {
+    // 文件信息
+    const fileJSON = {
+      url: '',
+      Progress: 0,
+      fileText: '',
+      status: 'waiting',
+      res: {},
+    };
+    if (file[i].type.indexOf('image') === 0) {
+      // 上传图片开启缩略图
+      const fileurl = window.URL.createObjectURL(file[i]);
+      fileJSON.url = fileurl;
+      fileJSON.fileText = file[i].name;
+      data.fileList.push(fileJSON);
+    }
+  }
+};
+
+/**
+ * @description 上传图片至服务器
+ * @param index 上传文件位于队列的顺序
+ */
+const uploadImage = async (index: number) => {
   console.log(index);
+  // 切换状态
+  data.fileList[index].status = 'uploading';
+  const tempData = data.tempFile[index];
+  console.log(tempData);
+
+  const res = await UploadRequest('/api/image', tempData);
+
+  console.log(res.data);
+  if (res.data.code === 1) {
+    data.fileList[index].res = res.data.data;
+    data.fileList[index].status = 'successed';
+  }
+};
+
+/**
+ * @description: 删除等待上传图片
+ * @param {number} index
+ * @return {*}
+ */
+const deleteUploadImage = (index: number) => {
+  console.log(index);
+  data.tempFile.splice(index, 1);
   return data.fileList.splice(index, 1);
 };
 
-const getImageInfo = (index: Number) => {
+/**
+ * @description: 获取图片信息
+ * @param {number} index
+ * @return {*}
+ */
+const getImageInfo = (index: number) => {
   const info = data.fileList[index as number].res;
   return (data.fileInfo = info);
 };
+
+/**
+ * @description: 复制链接地址
+ * @param {Number} index
+ * @return {String} link
+ */
+const getCopyLink = (index: number) => {};
 
 // 组件相关
 const UploadFile = defineComponent({
   components: {
     'upload-list': uploadFileList,
+    'm-button': MermaidUIButton,
+    'm-toast': MermaidUIToast,
   },
   setup() {
     data;
@@ -146,7 +194,6 @@ const UploadFile = defineComponent({
         console.log(file);
         uploadEvent(file);
       });
-      console.log(data);
     });
     return { data };
   },
@@ -172,6 +219,14 @@ const UploadFile = defineComponent({
           </div>
         </div>
         {this.data.fileList.length !== 0 ? (
+          <div class="upload--options">
+            <m-button color="danger">清除队列</m-button>
+            <m-button>全部上传</m-button>
+          </div>
+        ) : (
+          ''
+        )}
+        {this.data.fileList.length !== 0 ? (
           <div class="upload--list">
             {this.data.fileList.map((item: upload, index: Number) => {
               return (
@@ -179,10 +234,11 @@ const UploadFile = defineComponent({
                   url={item.url}
                   progress={item.progress}
                   fileText={item.fileText}
+                  status={item.status}
                   data-index={index}
-                  onInfo={() => getImageInfo(index)}
-                  onDelete={() => deleteUploadImage(index)}
-                  onUpdate={() => uploadImage(index)}
+                  onInfo={() => getImageInfo(index as number)}
+                  onDelete={() => deleteUploadImage(index as number)}
+                  onUpdate={() => uploadImage(index as number)}
                 ></upload-list>
               );
             })}
