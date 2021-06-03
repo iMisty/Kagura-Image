@@ -4,7 +4,8 @@
   position: relative;
   // top: -6rem;
   display: grid;
-  grid-template-rows: 14rem 1fr;
+  grid-template-rows: 14rem 6rem 1fr;
+  gap: 1rem;
   margin: 0 auto;
   padding: 4rem;
 
@@ -54,12 +55,21 @@
     .position(absolute,0,0,100%,100%);
     opacity: 0;
   }
+
+  // 功能按钮组
+  &--options{
+    .layout(flex,row,flex-end,center);
+    margin: 1rem 0 1rem 0;
+    padding: 0 1.5rem;
+    background-color: rgba(255,255,255,.5);
+    border-radius: @border-radius;
+  }
+
   // 列表
   &--list {
     display: grid;
     gap: 1rem;
     padding: 1.5rem;
-    margin-top: 4rem;
     max-height: 40vh;
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: @border-radius;
