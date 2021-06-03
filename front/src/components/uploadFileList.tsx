@@ -1,13 +1,13 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-16 15:18:26
- * @LastEditTime: 2021-05-31 13:50:58
+ * @LastEditTime: 2021-06-03 17:24:14
  * @LastEditors: Miya
  * @Description: 欲上传文件列表
  * @FilePath: \front\src\components\uploadFileList.tsx
  * @Version: 1.0
  */
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 import Card from './mermaid-ui/card/card';
 import Button from './mermaid-ui/button/button';
 import '../style/uploadFileList.less';
@@ -23,7 +23,7 @@ const uploadFileList = defineComponent({
     'm-button': Button,
     'm-card': Card,
   },
-  emits: ['delete', 'update', 'info'],
+  emits: ['delete', 'update', 'info', 'copy'],
   props: {
     // 上传文件URL地址
     url: {
@@ -44,6 +44,11 @@ const uploadFileList = defineComponent({
       type: Boolean,
       default: false,
     },
+    // 状态
+    status: {
+      type: String,
+      default: 'waiting',
+    },
   },
   setup(props, ctx) {
     // Emit: 删除操作
@@ -58,7 +63,30 @@ const uploadFileList = defineComponent({
     const handleClickInfo = () => {
       ctx.emit('info');
     };
-    return { handleClickUpload, handleClickDelete, handleClickInfo };
+    // Emit: 复制链接
+    const handleClickCopy = () => {
+      ctx.emit('copy');
+    };
+    // Computed: 根据状态变换状态文字
+    const computedStatus = computed(() => {
+      switch (props.status) {
+        case 'waiting':
+          return '等待上传';
+        case 'uploading':
+          return '正在上传';
+        case 'successed':
+          return '上传成功';
+        case 'error':
+          return '上传失败';
+      }
+    });
+    return {
+      handleClickUpload,
+      handleClickDelete,
+      handleClickInfo,
+      handleClickCopy,
+      computedStatus,
+    };
   },
 
   render() {
@@ -66,30 +94,53 @@ const uploadFileList = defineComponent({
       <div class="upload--item">
         <img src={this.$props.url} class="upload--item__image" />
         <p class="upload--item__filename">{this.$props.fileText}</p>
-        <div class="upload--item__progress"></div>
-        <m-button
-          color="info"
-          onClick={() => {
-            this.handleClickInfo();
-          }}
-        >
-          信息
-        </m-button>
-        <m-button
-          color="danger"
-          onClick={() => {
-            this.handleClickDelete();
-          }}
-        >
-          删除
-        </m-button>
-        <m-button
-          onClick={() => {
-            this.handleClickUpload();
-          }}
-        >
-          上传
-        </m-button>
+        {/* <div class="upload--item__progress"></div> */}
+        <div class="upload--item__button">
+          {this.$props.status === 'successed' ? (
+            <section class="upload--item__button--success">
+              <m-button
+                color="info"
+                disabled={this.$props.status !== 'successed'}
+                onClick={() => {
+                  this.handleClickInfo();
+                }}
+              >
+                信息
+              </m-button>
+              <m-button
+                disabled={this.$props.status !== 'successed'}
+                onClick={() => {
+                  this.handleClickCopy();
+                }}
+              >
+                复制链接
+              </m-button>
+            </section>
+          ) : (
+            ''
+          )}
+          {this.$props.status !== 'waiting' ? (
+            ''
+          ) : (
+            <m-button
+              color="danger"
+              disabled={this.$props.status !== 'waiting'}
+              onClick={() => {
+                this.handleClickDelete();
+              }}
+            >
+              删除
+            </m-button>
+          )}
+          <m-button
+            disabled={this.computedStatus !== '等待上传'}
+            onClick={() => {
+              this.handleClickUpload();
+            }}
+          >
+            {this.computedStatus}
+          </m-button>
+        </div>
       </div>
     );
   },
