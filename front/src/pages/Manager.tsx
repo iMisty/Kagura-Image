@@ -1,137 +1,20 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-18 11:26:09
- * @LastEditTime: 2021-03-19 14:56:24
+ * @LastEditTime: 2021-06-06 04:57:22
  * @LastEditors: Miya
  * @Description: 文件管理页面
- * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\pages\Manager.tsx
+ * @FilePath: \front\src\pages\Manager.tsx
  * @Version: 1.0
  */
 import { defineComponent, reactive } from 'vue';
 import Model from '../components/ManagerModel';
 import Card from '../components/mermaid-ui/card/card';
 import '../style/manager.less';
+import { GET } from '../utils/request';
 
 const data = reactive({
-  file: [
-    {
-      url: 'https://www.hualigs.cn/image/6052dfb1e0b49.jpg',
-      name: 'Mock1.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/6053008c864ea.jpg',
-      name:
-        'Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2Mock2.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/605300b847e79.jpg',
-      name: 'Mock3.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/605300bc38ef7.jpg',
-      name: 'Mock4.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/605300c0a9da1.jpg',
-      name: 'Mock5.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/6052dfb1e0b49.jpg',
-      name: 'Mock1.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/6053008c864ea.jpg',
-      name: 'Mock2.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/605300b847e79.jpg',
-      name: 'Mock3.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/605300bc38ef7.jpg',
-      name: 'Mock4.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/605300c0a9da1.jpg',
-      name: 'Mock5.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/6052dfb1e0b49.jpg',
-      name: 'Mock1.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/6053008c864ea.jpg',
-      name: 'Mock2.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/605300b847e79.jpg',
-      name: 'Mock3.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/605300bc38ef7.jpg',
-      name: 'Mock4.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/605300c0a9da1.jpg',
-      name: 'Mock5.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/6052dfb1e0b49.jpg',
-      name: 'Mock1.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/6053008c864ea.jpg',
-      name: 'Mock2.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/605300b847e79.jpg',
-      name: 'Mock3.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/605300bc38ef7.jpg',
-      name: 'Mock4.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/605300c0a9da1.jpg',
-      name: 'Mock5.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/6052dfb1e0b49.jpg',
-      name: 'Mock1.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/6052dfb1e0b49.jpg',
-      name: 'Mock1.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/6052dfb1e0b49.jpg',
-      name: 'Mock1.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/6052dfb1e0b49.jpg',
-      name: 'Mock1.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/6053008c864ea.jpg',
-      name: 'Mock2.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/605300b847e79.jpg',
-      name: 'Mock3.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/605300bc38ef7.jpg',
-      name: 'Mock4.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/605300c0a9da1.jpg',
-      name: 'Mock5.jpg',
-    },
-    {
-      url: 'https://www.hualigs.cn/image/6052dfb1e0b49.jpg',
-      name: 'Mock1.jpg',
-    },
-  ],
+  file: [],
   fileView: [{}],
 });
 
@@ -145,9 +28,9 @@ const Manager = defineComponent({
     data;
     return { data };
   },
-  mounted() {
-    const mock = data.file.slice(0, 8);
-    return (data.fileView = mock);
+  async mounted() {
+    const getData = await GET('/api/image/readdir');
+    console.log(getData);
   },
 
   render() {
@@ -174,7 +57,7 @@ const Manager = defineComponent({
             <section class="manager--list__page">123456789</section>
           </section>
         </m-card>
-        <manager-model></manager-model>
+        {/* <manager-model></manager-model> */}
       </div>
     );
   },
