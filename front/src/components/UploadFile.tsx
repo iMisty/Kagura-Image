@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 18:05:02
- * @LastEditTime: 2021-06-04 00:34:24
+ * @LastEditTime: 2021-06-09 07:14:19
  * @LastEditors: Miya
  * @Description: 拖拽上传文件组件
  * @FilePath: \front\src\components\UploadFile.tsx
@@ -30,28 +30,23 @@ interface FileList {
   type: string;
 }
 
+interface UploadFile {
+  border: boolean;
+  fileList: any[];
+  tempFile: any[];
+  fileInfo?: String[];
+  uploaded: number;
+}
+
 interface MouseEventExtra extends MouseEvent {
   dataTransfer: any;
 }
 
-const data: any = reactive({
+const data: UploadFile = reactive({
   border: true,
-  fileList: [
-    // {
-    //   url: 'https://s3.ax1x.com/2021/03/17/6yqjPg.jpg',
-    //   Progress: 0,
-    //   fileText: '3c5cebf81a4c510feb099d5c7759252dd52aa5bb.jpg',
-    //   status: 'successed',
-    // },
-  ],
-  tempFile: [
-    // {
-    //   url: 'https://s3.ax1x.com/2021/03/17/6yqjPg.jpg',
-    //   Progress: 0,
-    //   fileText: '3c5cebf81a4c510feb099d5c7759252dd52aa5bb.jpg',
-    //   status: 'successed',
-    // },
-  ],
+  fileList: [],
+  tempFile: [],
+
   fileInfo: undefined,
   uploaded: 0,
 });
