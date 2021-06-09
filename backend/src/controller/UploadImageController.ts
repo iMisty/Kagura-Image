@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:41:07
- * @LastEditTime: 2021-05-31 11:44:22
+ * @LastEditTime: 2021-06-10 00:36:07
  * @LastEditors: Miya
  * @Description: Update image controller
  * @FilePath: \backend\src\controller\UploadImageController.ts
@@ -47,10 +47,9 @@ class UploadController {
     console.log(data);
     // 录入数据库
     const db = await DBC.addNewImage(data);
-    console.log('Upload Data:' + data);
     console.log('Upload to Database:' + db);
 
-    return { data, db };
+    return { db };
   }
 
   /**
@@ -66,8 +65,7 @@ class UploadController {
       return (ctx.body = {
         code: 1,
         msg: 'ok',
-        data: result.data,
-        db: result.db,
+        data: result.db,
       });
     } catch (err) {
       return (ctx.body = {

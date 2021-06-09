@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-23 15:35:17
- * @LastEditTime: 2021-03-25 15:01:55
+ * @LastEditTime: 2021-06-10 03:32:13
  * @LastEditors: Miya
  * @Description: 数据库操作
- * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\backend\src\controller\DataBaseController.ts
+ * @FilePath: \backend\src\controller\DataBaseController.ts
  * @Version: 1.0
  */
 
@@ -25,10 +25,11 @@ class DBController {
       name: image.name,
       path: image.path,
       time: image.time,
+      id: new Date().valueOf(),
     });
     try {
       await result.save();
-      return true;
+      return result;
     } catch (error) {
       return error;
     }
@@ -37,15 +38,14 @@ class DBController {
   // 图片遍历
   public static async getImageList(ctx: any) {
     // 根据ID查找单条目录
-    const id = ctx.query.id;
-
+    const id = ctx.params.id;
     let result;
 
     if (id) {
-      result = await ImageModel.find({ _id: id });
+      result = await ImageModel.find({ id });
     } else {
       // 根据时间倒序
-      result = await ImageModel.find().sort({ _id: -1 });
+      result = await ImageModel.find().sort({ id: -1 });
     }
 
     try {
@@ -60,6 +60,11 @@ class DBController {
       });
     }
   }
+
+  // // 读取单张图片
+  // private static async getImageInfo(id){
+
+  // }
 }
 
 module.exports = DBController;
