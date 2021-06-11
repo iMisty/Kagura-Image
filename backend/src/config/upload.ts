@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-22 14:27:01
- * @LastEditTime: 2021-03-22 16:16:30
+ * @LastEditTime: 2021-06-10 06:02:24
  * @LastEditors: Miya
  * @Description: upload
- * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\backend\src\config\upload.ts
+ * @FilePath: \backend\src\config\upload.ts
  * @Version: 1.0
  */
 
@@ -30,3 +30,4 @@
 // });
 
 // module.exports = upload;
+export const HOST = 'http://localhost:12450';
