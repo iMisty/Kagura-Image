@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-16 15:18:26
- * @LastEditTime: 2021-06-03 17:24:14
+ * @LastEditTime: 2021-06-09 07:47:14
  * @LastEditors: Miya
  * @Description: 欲上传文件列表
  * @FilePath: \front\src\components\uploadFileList.tsx
@@ -71,7 +71,7 @@ const uploadFileList = defineComponent({
     const computedStatus = computed(() => {
       switch (props.status) {
         case 'waiting':
-          return '等待上传';
+          return '上传';
         case 'uploading':
           return '正在上传';
         case 'successed':
@@ -133,7 +133,7 @@ const uploadFileList = defineComponent({
             </m-button>
           )}
           <m-button
-            disabled={this.computedStatus !== '等待上传'}
+            disabled={this.computedStatus !== '上传'}
             onClick={() => {
               this.handleClickUpload();
             }}
