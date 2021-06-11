@@ -1,12 +1,14 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-23 15:35:17
- * @LastEditTime: 2021-06-10 03:32:13
+ * @LastEditTime: 2021-06-10 06:02:55
  * @LastEditors: Miya
  * @Description: 数据库操作
  * @FilePath: \backend\src\controller\DataBaseController.ts
  * @Version: 1.0
  */
+
+import { HOST } from "../config/upload";
 
 const ImageModel = require('../model/Image');
 
@@ -23,7 +25,7 @@ class DBController {
     const result = new ImageModel({
       size: image.size,
       name: image.name,
-      path: image.path,
+      path: `${HOST}/${image.path}`,
       time: image.time,
       id: new Date().valueOf(),
     });
