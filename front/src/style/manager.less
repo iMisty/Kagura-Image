@@ -11,8 +11,9 @@
   &--list {
     display: grid;
     gap: 0.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, 1fr);
+    justify-items: center;
     overflow: auto;
     // 图片详情
     &__item {
@@ -39,5 +40,19 @@
         cursor: pointer;
       }
     }
+    // 分页器
+    &__page{
+      .layout(flex,row,center,center,nowrap);
+    }
+   @media screen and (max-width: 960px){
+     &{
+       grid-template-columns: repeat(2,1fr);
+     }
+   }
+   @media screen and (max-width: 500px){
+    &{
+      grid-template-columns: repeat(1,1fr);
+    }
+  }
   }
 }
