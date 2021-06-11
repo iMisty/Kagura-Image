@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-22 10:11:32
- * @LastEditTime: 2021-06-10 05:43:31
+ * @LastEditTime: 2021-06-11 15:52:39
  * @LastEditors: Miya
  * @Description: 文件管理
  * @FilePath: \backend\src\controller\FileController.ts
@@ -64,12 +64,13 @@ class FileController {
       if (result === undefined) {
         return (ctx.body = {
           code: 0,
-          data: result,
           msg: '目录为空',
+          data: result,
         });
       }
       return (ctx.body = {
         code: 1,
+        msg: 'ok',
         data: result,
       });
     } catch (error) {
@@ -80,53 +81,53 @@ class FileController {
     }
   }
 
-  /**
-   * @description: 读取数据库与文件差异
-   * @param {*}
-   * @return {Boolean} isUnequal: 当数据库与文件存在差异时为true
-   */
-  private static async checkImageList(dir: String = './src/upload') {
-    // 服务器文件列表
-    const listOnServer = new Set(
-      await FileController.openRootFolder(dir as any)
-    );
-    // 数据库内入库文件列表
-    const listOnDatabase = await ImageModel.find();
+  // /**
+  //  * @description: 读取数据库与文件差异
+  //  * @param {*}
+  //  * @return {Boolean} isUnequal: 当数据库与文件存在差异时为true
+  //  */
+  // private static async checkImageList(dir: String = './src/upload') {
+  //   // 服务器文件列表
+  //   const listOnServer = new Set(
+  //     await FileController.openRootFolder(dir as any)
+  //   );
+  //   // 数据库内入库文件列表
+  //   const listOnDatabase = await ImageModel.find();
 
-    const pathOnDatabase = new Set(
-      listOnDatabase.map((item: { path: String }) => {
-        return item.path;
-      })
-    );
+  //   const pathOnDatabase = new Set(
+  //     listOnDatabase.map((item: { path: String }) => {
+  //       return item.path;
+  //     })
+  //   );
 
-    console.log('Server:' + [...listOnServer]);
-    console.log('Database:' + [...pathOnDatabase]);
-    return {
-      Server: [...listOnServer],
-      Database: [...pathOnDatabase],
-      isUnequal:
-        [...listOnServer].length !== [...pathOnDatabase].length ? true : false,
-    };
-  }
+  //   console.log('Server:' + [...listOnServer]);
+  //   console.log('Database:' + [...pathOnDatabase]);
+  //   return {
+  //     server: [...listOnServer],
+  //     database: [...pathOnDatabase],
+  //     isUnequal:
+  //       [...listOnServer].length !== [...pathOnDatabase].length ? true : false,
+  //   };
+  // }
 
-  /**
-   * @description: API: 获取图片文件名信息
-   * @param {CTXRead} ctx
-   * @return {*}
-   */
-  public static async getImage(ctx: CTXRead) {
-    const result = await FileController.checkImageList('./src/upload');
-    console.log(result);
-    try {
-      return (ctx.body = {
-        data: result,
-      });
-    } catch (err) {
-      return (ctx.body = {
-        err,
-      });
-    }
-  }
+  // /**
+  //  * @description: API: 读取图片文件
+  //  * @param {CTXRead} ctx
+  //  * @return {*}
+  //  */
+  // public static async getImage(ctx: CTXRead) {
+  //   const result = await FileController.checkImageList('./src/upload');
+  //   console.log(result);
+  //   try {
+  //     return (ctx.body = {
+  //       data: result,
+  //     });
+  //   } catch (err) {
+  //     return (ctx.body = {
+  //       err,
+  //     });
+  //   }
+  // }
 }
 
 module.exports = FileController;
