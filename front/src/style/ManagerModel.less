@@ -8,6 +8,7 @@
     padding: 1rem;
     z-index: 5;
   }
+  // 图片
   &__image {
     .layout(flex,row,center,normal);
     height: 10rem;
@@ -17,12 +18,17 @@
       object-fit: cover;
     }
   }
-
-  &__options {
-    // padding: 0 1rem;
+  // 信息
+  &__info {
+    & > .info {
+      margin: 1rem 0;
+    }
   }
 }
 .wrap {
   padding: 0 1rem;
   min-width: 32rem;
+}
+.hidden{
+  display: none;
 }
