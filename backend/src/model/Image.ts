@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-23 15:51:43
- * @LastEditTime: 2021-06-10 00:18:47
+ * @LastEditTime: 2021-06-12 03:04:02
  * @LastEditors: Miya
  * @Description: MongoDB图片模型
  * @FilePath: \backend\src\model\Image.ts
@@ -21,6 +21,7 @@ const imageModel = new Mongoose.Schema({
   size: Number,
   name: String,
   path: String,
+  url: String,
   time: String,
   id: Number,
 });

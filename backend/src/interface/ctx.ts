@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:58:37
- * @LastEditTime: 2021-05-23 22:38:45
+ * @LastEditTime: 2021-06-12 04:38:47
  * @LastEditors: Miya
  * @Description: ctx interface
  * @FilePath: \backend\src\interface\ctx.ts
@@ -29,4 +29,17 @@ interface CTXRead extends CTXNormal {
   };
 }
 
-export { CTXNormal, CTXRead };
+interface CTXReturn {
+  code: Number;
+  data?: unknown;
+  msg?: String;
+}
+
+interface CTXParams {
+  params: {
+    id?: number;
+    path?: string;
+  };
+  body: any;
+}
+export { CTXNormal, CTXRead, CTXReturn, CTXParams };
