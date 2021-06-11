@@ -1,14 +1,14 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-23 15:35:17
- * @LastEditTime: 2021-06-10 06:02:55
+ * @LastEditTime: 2021-06-12 04:28:38
  * @LastEditors: Miya
  * @Description: 数据库操作
  * @FilePath: \backend\src\controller\DataBaseController.ts
  * @Version: 1.0
  */
 
-import { HOST } from "../config/upload";
+import { HOST } from '../config/upload';
 
 const ImageModel = require('../model/Image');
 
@@ -17,6 +17,7 @@ interface Image {
   name: String;
   path: String;
   time: String;
+  url: String;
 }
 
 class DBController {
@@ -25,7 +26,8 @@ class DBController {
     const result = new ImageModel({
       size: image.size,
       name: image.name,
-      path: `${HOST}/${image.path}`,
+      url: `${HOST}/${image.path}`,
+      path: image.path,
       time: image.time,
       id: new Date().valueOf(),
     });
@@ -63,6 +65,34 @@ class DBController {
     }
   }
 
+  /**
+   * @description: 删除图片
+   * @param {string} path: 图片位于数据库中的文件名
+   * @return {*}
+   */
+  private static async deleteImage(path: string) {
+    try {
+      const find = await ImageModel.find({ path });
+      if (!find) {
+        return false;
+      }
+      const result = await ImageModel.deleteOne({ path });
+      console.log(result);
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /**
+   * @description: API as FileController: 删除图片
+   * @param {path}
+   * @return {*}
+   */
+  public static async setDeleteImage(path: string) {
+    const result = await DBController.deleteImage(path);
+    console.log(result);
+  }
   // // 读取单张图片
   // private static async getImageInfo(id){
 

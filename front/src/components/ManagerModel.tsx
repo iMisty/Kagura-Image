@@ -1,20 +1,18 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-19 10:49:18
- * @LastEditTime: 2021-06-11 18:18:41
+ * @LastEditTime: 2021-06-12 05:16:37
  * @LastEditors: Miya
  * @Description: 点击图片弹出窗口
  * @FilePath: \front\src\components\ManagerModel.tsx
  * @Version: 1.0
  */
 
-import { computed, defineComponent, onMounted, reactive, watch } from 'vue';
+import { computed, defineComponent, reactive, watch } from 'vue';
 import Card from './mermaid-ui/card/card';
-import Input from './mermaid-ui/input/input';
 import Button from './mermaid-ui/button/button';
 import '../style/ManagerModel.less';
-import { GET } from '../utils/request';
-import { HOST } from '../utils/host';
+import { DELETE, GET } from '../utils/request';
 import { setCopyText } from '../utils/copy';
 
 interface FileManager {
@@ -33,7 +31,6 @@ const ManagerModel = defineComponent({
   name: 'ManagerModel',
   components: {
     'm-card': Card,
-    'm-input': Input,
     'm-button': Button,
   },
   props: {
@@ -43,13 +40,15 @@ const ManagerModel = defineComponent({
       default: 0,
     },
   },
-  setup(props) {
+  emits: ['delete'],
+  setup(props, ctx) {
     const data = reactive({
       id: 0,
       url: '',
       fileName: '',
       time: '',
       size: 0,
+      path: '',
     });
     const computedSize = computed(() => {
       const size = data.size;
@@ -74,6 +73,14 @@ const ManagerModel = defineComponent({
       data.url = data.fileName = data.time = '';
     };
     /**
+     * @description: Click: 删除图片
+     * @param {string} path
+     * @return {*}
+     */
+    const handleDeleteImage = (path: string) => {
+      return ctx.emit('delete', path);
+    };
+    /**
      * @description: Click：复制链接
      * @param {string} path
      * @return {*}
@@ -82,25 +89,26 @@ const ManagerModel = defineComponent({
       return setCopyText(path);
     };
     watch(props, async (newVal) => {
+      if ((newVal.id === 0)) {
+        handleClickClose();
+        return true;
+      }
       const getData = await GET(`/api/file/${newVal.id}`);
       data.id = getData.data.data[0].id;
-      data.url = `${getData.data.data[0].path}`;
+      data.url = `${getData.data.data[0].url}`;
       data.fileName = getData.data.data[0].name;
       data.time = getData.data.data[0].time;
       data.size = getData.data.data[0].size;
+      data.path = getData.data.data[0].path;
     });
-    // onMounted(async () => {
-    //   if (props.id === 0) {
-    //     return false;
-    //   }
-    //   const getData = await GET(`/api/file/${props.id}`);
-    //   data.id = getData.data.data[0].id;
-    //   data.url = `${HOST}/${getData.data.data[0].path}`;
-    //   data.fileName = getData.data.data[0].name;
-    //   data.time = getData.data.data[0].time;
-    //   data.size = getData.data.data[0].size;
-    // });
-    return { data, computedSize, handleClickClose, handleClickCopyLink };
+
+    return {
+      data,
+      computedSize,
+      handleClickClose,
+      handleClickCopyLink,
+      handleDeleteImage,
+    };
   },
 
   render() {
@@ -147,6 +155,12 @@ const ManagerModel = defineComponent({
                   onClick={() => this.handleClickCopyLink(this.data.url)}
                 >
                   <p>复制链接</p>
+                </m-button>
+                <m-button
+                  color="danger"
+                  onClick={() => this.handleDeleteImage(this.data.path)}
+                >
+                  <p>删除图片</p>
                 </m-button>
               </section>
             </m-card>

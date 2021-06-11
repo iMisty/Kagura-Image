@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-06-11 15:08:33
- * @LastEditTime: 2021-06-11 16:08:26
+ * @LastEditTime: 2021-06-12 04:26:40
  * @LastEditors: Miya
  * @Description: 文件相关
  * @FilePath: \backend\src\router\file.ts
@@ -17,5 +17,8 @@ router.get('/check', FileController.getDirExists);
 router.get('/', FileController.getRootDirFiles);
 // 从数据库获取单张文件信息
 router.get('/:id', DBController.getImageList);
+// 删除图片
+// router.delete('/:id', FileController.setDeleteImage);
 
+router.delete('/:path', FileController.setDeleteImage);
 export default router;
