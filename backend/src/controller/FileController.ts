@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-22 10:11:32
- * @LastEditTime: 2021-05-23 17:09:11
+ * @LastEditTime: 2021-06-10 05:43:31
  * @LastEditors: Miya
  * @Description: 文件管理
  * @FilePath: \backend\src\controller\FileController.ts
@@ -46,7 +46,8 @@ class FileController {
    * @return {*}
    */
   private static async openRootFolder(dir: String = './src/upload') {
-    const files = await fs.promises.readdir(dir);
+    // const files = await fs.promises.readdir(dir);
+    const files = await ImageModel.find();
     return files;
   }
 
