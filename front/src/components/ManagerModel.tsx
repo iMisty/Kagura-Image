@@ -1,20 +1,21 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-19 10:49:18
- * @LastEditTime: 2021-06-11 16:12:56
+ * @LastEditTime: 2021-06-11 18:18:41
  * @LastEditors: Miya
  * @Description: 点击图片弹出窗口
  * @FilePath: \front\src\components\ManagerModel.tsx
  * @Version: 1.0
  */
 
-import { computed, defineComponent, onMounted, reactive } from 'vue';
+import { computed, defineComponent, onMounted, reactive, watch } from 'vue';
 import Card from './mermaid-ui/card/card';
 import Input from './mermaid-ui/input/input';
 import Button from './mermaid-ui/button/button';
 import '../style/ManagerModel.less';
 import { GET } from '../utils/request';
 import { HOST } from '../utils/host';
+import { setCopyText } from '../utils/copy';
 
 interface FileManager {
   // name: 'QQ图片20210408230834.jpg';
@@ -63,20 +64,43 @@ const ManagerModel = defineComponent({
         return `${(size / 1048576).toFixed(2)}MB`;
       }
     });
-    // Click: 关闭窗口
-    const handleClickClose = () => {
+    /**
+     * @description: Click: 关闭窗口
+     * @param {*} void
+     * @return {*}
+     */
+    const handleClickClose = (): void => {
       data.id = data.size = 0;
       data.url = data.fileName = data.time = '';
     };
-    onMounted(async () => {
-      const getData = await GET(`/api/file/${props.id}`);
+    /**
+     * @description: Click：复制链接
+     * @param {string} path
+     * @return {*}
+     */
+    const handleClickCopyLink = (path: string) => {
+      return setCopyText(path);
+    };
+    watch(props, async (newVal) => {
+      const getData = await GET(`/api/file/${newVal.id}`);
       data.id = getData.data.data[0].id;
-      data.url = `${HOST}/${getData.data.data[0].path}`;
+      data.url = `${getData.data.data[0].path}`;
       data.fileName = getData.data.data[0].name;
       data.time = getData.data.data[0].time;
       data.size = getData.data.data[0].size;
     });
-    return { data, computedSize, handleClickClose };
+    // onMounted(async () => {
+    //   if (props.id === 0) {
+    //     return false;
+    //   }
+    //   const getData = await GET(`/api/file/${props.id}`);
+    //   data.id = getData.data.data[0].id;
+    //   data.url = `${HOST}/${getData.data.data[0].path}`;
+    //   data.fileName = getData.data.data[0].name;
+    //   data.time = getData.data.data[0].time;
+    //   data.size = getData.data.data[0].size;
+    // });
+    return { data, computedSize, handleClickClose, handleClickCopyLink };
   },
 
   render() {
@@ -91,7 +115,10 @@ const ManagerModel = defineComponent({
           <div class="manager--model__container">
             <m-card>
               <section class="manager--model__image">
-                <img src={this.data.url} />
+                <img
+                  src={this.data.url}
+                  onClick={() => window.open(this.data.url)}
+                />
               </section>
               <section class="manager--model__info wrap">
                 <div class="info">
@@ -112,10 +139,13 @@ const ManagerModel = defineComponent({
                 </div>
               </section>
               <section class="manager--model__buttons wrap">
-                <m-button>
+                <m-button onClick={() => this.handleClickClose()}>
                   <p>确定</p>
                 </m-button>
-                <m-button color="info">
+                <m-button
+                  color="info"
+                  onClick={() => this.handleClickCopyLink(this.data.url)}
+                >
                   <p>复制链接</p>
                 </m-button>
               </section>
