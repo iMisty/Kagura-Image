@@ -1,19 +1,20 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 18:05:02
- * @LastEditTime: 2021-06-09 07:14:19
+ * @LastEditTime: 2021-06-10 05:48:10
  * @LastEditors: Miya
  * @Description: 拖拽上传文件组件
  * @FilePath: \front\src\components\UploadFile.tsx
  * @Version: 1.0
  */
-import { defineComponent, onMounted, reactive } from 'vue';
+import { defineComponent, onMounted, onUnmounted, reactive } from 'vue';
 import uploadFileList from './UploadFileList';
 import MermaidUIButton from './mermaid-ui/button/button';
 import MermaidUIToast from './mermaid-ui/toast/toast';
 import '../style/upload.less';
 import { UploadRequest } from '../utils/request';
 import { HOST } from '../utils/host';
+import { setCopyText } from '../utils/copy';
 
 interface upload {
   url: String;
@@ -96,11 +97,6 @@ const eventDragOver = (e: MouseEvent) => {
 // TODO: 检测非图片提示信息
 // TODO: 限制预上传大小
 const uploadEvent = async (file: FileList[]) => {
-  // if (file.length > 1) {
-  //   console.log('上传多张图片');
-  //   console.log(...file);
-  // }
-  // console.log(...file)
   data.tempFile.push(...file);
   console.log(data.tempFile);
   for (let i = 0; i !== file.length; i++) {
@@ -133,7 +129,7 @@ const uploadImage = async (index: number) => {
   }
   // 切换状态
   data.fileList[index].status = 'uploading';
-  const tempData = data.tempFile[0];
+  const tempData = data.tempFile[index];
   console.log(tempData);
 
   const res = await UploadRequest('/api/image', tempData);
@@ -167,7 +163,6 @@ const uploadMultiImage = async () => {
  * @return {*}
  */
 const deleteUploadImage = (index: number) => {
-  console.log(index);
   data.tempFile.splice(index, 1);
   return data.fileList.splice(index, 1);
 };
@@ -185,8 +180,13 @@ const getImageInfo = (index: number) => {
 /**
  * @description: 清除队列
  * @param {*}
- * @return {*}
+ * @return {boolean}
  */
+const deleteUploadImageList = () => {
+  data.fileList = [];
+  data.tempFile = [];
+  return true;
+};
 
 /**
  * @description: 复制链接地址
@@ -195,18 +195,7 @@ const getImageInfo = (index: number) => {
  */
 const getCopyLink = (index: number) => {
   const link = `${HOST}/${data.fileList[index].res.path}`;
-
-  let transfer = document.createElement('input');
-  document.body.appendChild(transfer);
-  transfer.value = link;
-  transfer.focus();
-  transfer.select();
-  if (document.execCommand('copy')) {
-    document.execCommand('copy');
-  }
-  transfer.blur();
-  console.log('Copy Successed');
-  document.body.removeChild(transfer);
+  return setCopyText(link);
 };
 
 // 组件相关
@@ -230,6 +219,12 @@ const UploadFile = defineComponent({
         console.log(file);
         uploadEvent(file);
       });
+    });
+    onUnmounted(() => {
+      data.fileList = [];
+      data.tempFile = [];
+      data.fileInfo = undefined;
+      data.uploaded = 0;
     });
     return { data };
   },
@@ -256,7 +251,9 @@ const UploadFile = defineComponent({
         </div>
         {this.data.fileList.length !== 0 ? (
           <div class="upload--options">
-            <m-button color="danger">清除队列</m-button>
+            <m-button color="danger" onClick={() => deleteUploadImageList()}>
+              清除队列
+            </m-button>
             <m-button
               disabled={data.fileList.length === data.uploaded}
               onClick={() => uploadMultiImage()}
