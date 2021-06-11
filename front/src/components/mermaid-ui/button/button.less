@@ -182,6 +182,14 @@
           border: none;
           background-color: transparent;
           box-shadow: none;
+          &:disabled{
+            color: #888;
+            background-color: transparent;
+          }
+          &:active{
+            background-color: transparent;
+            color: #555;
+          }
         }
         &-primary {
           .mixin;
