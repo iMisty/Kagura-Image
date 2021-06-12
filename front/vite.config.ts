@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 11:14:06
- * @LastEditTime: 2021-03-22 14:37:36
+ * @LastEditTime: 2021-06-13 04:22:53
  * @LastEditors: Miya
  * @Description: vite config
- * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\vite.config.ts
+ * @FilePath: \front\vite.config.ts
  * @Version: 1.0
  */
 import { defineConfig } from 'vite';
@@ -24,9 +24,21 @@ export default defineConfig({
       },
     },
   },
+  optimizeDeps: {
+    include: ['axios'],
+  },
+  // 打包配置
+  build: {
+    target: 'modules',
+    outDir: 'dist', //指定输出路径
+    assetsDir: 'assets', // 指定生成静态资源的存放路径
+    minify: 'terser', // 混淆器，terser构建后文件体积更小
+  },
+  base: './',
+
   resolve: {
     alias: {
-      '@': '/src',
+      '/@/': path.resolve(__dirname, './src'),
     },
   },
   plugins: [vue(), vueJSX()],
