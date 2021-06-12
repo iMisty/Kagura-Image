@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-23 15:35:17
- * @LastEditTime: 2021-06-12 04:28:38
+ * @LastEditTime: 2021-06-13 03:15:44
  * @LastEditors: Miya
  * @Description: 数据库操作
  * @FilePath: \backend\src\controller\DataBaseController.ts
@@ -49,7 +49,7 @@ class DBController {
       result = await ImageModel.find({ id });
     } else {
       // 根据时间倒序
-      result = await ImageModel.find().sort({ id: -1 });
+      result = await ImageModel.find().sort({ time: 1 });
     }
 
     try {
