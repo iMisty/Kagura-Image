@@ -1,14 +1,14 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-22 10:11:32
- * @LastEditTime: 2021-06-12 04:27:26
+ * @LastEditTime: 2021-06-13 05:46:09
  * @LastEditors: Miya
  * @Description: 文件管理
- * @FilePath: \backend\src\controller\FileController.ts
+ * @FilePath: \Kagura-Image\backend\src\controller\FileController.ts
  * @Version: 1.0
  */
 
-import { CTXNormal, CTXParams, CTXRead,CTXReturn } from '../interface/ctx';
+import { CTXNormal, CTXParams, CTXRead, CTXReturn } from '../interface/ctx';
 
 const fs = require('fs');
 
@@ -45,16 +45,21 @@ class FileController {
     }
   }
 
+// /**
+//  * @description: 新建目录
+//  * @param {String} 目录名
+//  * @return {Boolean}
+//  */  
+
   /**
    * @description: API: 返回检测目录接口
    * @param {any} ctx
    * @param {String} dir
    * @return {*}
    */
-  public static async getDirExists(ctx: CTXRead, dir: String = './src/upload') {
-    return (ctx.body = {
-      msg: await FileController.isDirExists(dir),
-    });
+  public static async getDirExists(dir: String = './src/upload') {
+    const result = await FileController.isDirExists(dir);
+    return result;
   }
 
   /**
@@ -118,10 +123,10 @@ class FileController {
   }
 
   /**
-   * @description: 
+   * @description:
    * @param {any} ctx
    * @return {*}
-   */  
+   */
   public static async setDeleteImage(ctx: CTXParams) {
     const path = ctx.params.path;
     // 删除文件管理器文件

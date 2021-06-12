@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:41:07
- * @LastEditTime: 2021-06-10 00:36:07
+ * @LastEditTime: 2021-06-13 05:45:57
  * @LastEditors: Miya
  * @Description: Update image controller
- * @FilePath: \backend\src\controller\UploadImageController.ts
+ * @FilePath: \Kagura-Image\backend\src\controller\UploadImageController.ts
  */
 
 import { CTXNormal } from '../interface/ctx';
@@ -25,6 +25,9 @@ interface CTXUpdate extends CTXNormal {
 }
 
 const DBC = require('../controller/DataBaseController');
+const FC = require('../controller/FileController');
+const fs = require('fs');
+
 
 class UploadController {
   /**
@@ -33,6 +36,11 @@ class UploadController {
    * @return {*}
    */
   private static async uploadImage(image: imgUpload) {
+    // 检测文件夹是否存在
+    const exists = await FC.getDirExists();
+    if(!exists){
+      await fs.promises.mkdir('upload');
+    }
     // 用户输入图片信息
     console.log(image);
     // 截取地址

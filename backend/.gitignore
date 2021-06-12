@@ -2,6 +2,7 @@
 node_modules
 /dist
 /src/upload
+test.http
 
 # local env files
 .env.local
