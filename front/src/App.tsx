@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 14:57:29
- * @LastEditTime: 2021-06-06 04:21:18
+ * @LastEditTime: 2021-06-13 00:49:30
  * @LastEditors: Miya
  * @Description: APP page
  * @FilePath: \front\src\App.tsx
@@ -9,6 +9,7 @@
  */
 import { defineComponent } from 'vue';
 import Logo from './components/HomeLogo';
+import Toast from './components/mermaid-ui/toast/toast';
 import './style/normalize.less';
 import './style/app.less';
 
@@ -17,14 +18,15 @@ const APP = defineComponent({
   components: {
     logo: Logo,
   },
-  setup() {},
+  setup() {
+  },
   render() {
     return (
       <main>
         <section class="container">
           <nav>
             <section class="navbar--list">
-              <logo/>
+              <logo />
               <router-link class="navbar--item" tag="article" to="/">
                 首页
               </router-link>

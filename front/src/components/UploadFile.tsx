@@ -1,16 +1,24 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 18:05:02
- * @LastEditTime: 2021-06-10 05:48:10
+ * @LastEditTime: 2021-06-13 03:04:32
  * @LastEditors: Miya
  * @Description: 拖拽上传文件组件
  * @FilePath: \front\src\components\UploadFile.tsx
  * @Version: 1.0
  */
-import { defineComponent, onMounted, onUnmounted, reactive } from 'vue';
+import {
+  defineComponent,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+  provide,
+} from 'vue';
 import uploadFileList from './UploadFileList';
 import MermaidUIButton from './mermaid-ui/button/button';
 import MermaidUIToast from './mermaid-ui/toast/toast';
+import ManagerModel from './ManagerModel';
 import '../style/upload.less';
 import { UploadRequest } from '../utils/request';
 import { HOST } from '../utils/host';
@@ -51,6 +59,10 @@ const data: UploadFile = reactive({
   fileInfo: undefined,
   uploaded: 0,
 });
+
+const id = ref(0);
+
+const msg = ref('');
 
 // 在触发区松开鼠标触发
 // TODO: fix any
@@ -174,7 +186,8 @@ const deleteUploadImage = (index: number) => {
  */
 const getImageInfo = (index: number) => {
   const info = data.fileList[index as number].res;
-  return (data.fileInfo = info);
+  console.log(info);
+  return (id.value = info.id);
 };
 
 /**
@@ -195,18 +208,30 @@ const deleteUploadImageList = () => {
  */
 const getCopyLink = (index: number) => {
   const link = `${HOST}/${data.fileList[index].res.path}`;
-  return setCopyText(link);
+  setCopyText(link);
+  return (msg.value = '复制成功');
+};
+
+/**
+ * @description: 关闭模态框后清除ID
+ * @param {Number} id
+ * @return {*}
+ */
+const changeID = (e: number) => {
+  return (id.value = 0);
 };
 
 // 组件相关
 const UploadFile = defineComponent({
   components: {
     'upload-list': uploadFileList,
+    'manager-model': ManagerModel,
     'm-button': MermaidUIButton,
     'm-toast': MermaidUIToast,
   },
   setup() {
     data;
+    provide('msg', msg);
     onMounted(() => {
       const area = document.getElementById('drop-area');
       const upload = document.getElementById('upload');
@@ -285,7 +310,11 @@ const UploadFile = defineComponent({
         ) : (
           ''
         )}
-        {/* {this.data.fileInfo !== undefined ? <div>333</div> : ''} */}
+        <m-toast></m-toast>
+        <manager-model
+          id={id.value}
+          onId={(e: number) => changeID(e)}
+        ></manager-model>
       </div>
     );
   },

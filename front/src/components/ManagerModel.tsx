@@ -1,18 +1,19 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-19 10:49:18
- * @LastEditTime: 2021-06-12 05:16:37
+ * @LastEditTime: 2021-06-13 03:36:44
  * @LastEditors: Miya
  * @Description: 点击图片弹出窗口
  * @FilePath: \front\src\components\ManagerModel.tsx
  * @Version: 1.0
  */
 
-import { computed, defineComponent, reactive, watch } from 'vue';
+import { computed, defineComponent, reactive, watch, ref, provide } from 'vue';
 import Card from './mermaid-ui/card/card';
 import Button from './mermaid-ui/button/button';
+import Toast from './mermaid-ui/toast/toast';
 import '../style/ManagerModel.less';
-import { DELETE, GET } from '../utils/request';
+import { GET } from '../utils/request';
 import { setCopyText } from '../utils/copy';
 
 interface FileManager {
@@ -31,6 +32,7 @@ const ManagerModel = defineComponent({
   name: 'ManagerModel',
   components: {
     'm-card': Card,
+    'm-toast': Toast,
     'm-button': Button,
   },
   props: {
@@ -40,7 +42,7 @@ const ManagerModel = defineComponent({
       default: 0,
     },
   },
-  emits: ['delete'],
+  emits: ['delete', 'id'],
   setup(props, ctx) {
     const data = reactive({
       id: 0,
@@ -50,6 +52,8 @@ const ManagerModel = defineComponent({
       size: 0,
       path: '',
     });
+    const msg = ref('');
+    provide('msg', msg);
     const computedSize = computed(() => {
       const size = data.size;
       if (size <= 0) {
@@ -69,8 +73,9 @@ const ManagerModel = defineComponent({
      * @return {*}
      */
     const handleClickClose = (): void => {
+      ctx.emit('id', data.id);
       data.id = data.size = 0;
-      data.url = data.fileName = data.time = '';
+      data.url = data.fileName = data.time = data.path = '';
     };
     /**
      * @description: Click: 删除图片
@@ -85,25 +90,31 @@ const ManagerModel = defineComponent({
      * @param {string} path
      * @return {*}
      */
-    const handleClickCopyLink = (path: string) => {
-      return setCopyText(path);
+    const handleClickCopyLink = (path: string): void => {
+      setCopyText(path);
+      msg.value = '复制成功';
     };
-    watch(props, async (newVal) => {
-      if ((newVal.id === 0)) {
-        handleClickClose();
-        return true;
+
+    watch(
+      () => props.id,
+      async (newVal) => {
+        if (newVal === 0) {
+          handleClickClose();
+          return true;
+        }
+        const getData = await GET(`/api/file/${newVal}`);
+        data.id = getData.data.data[0].id;
+        data.url = `${getData.data.data[0].url}`;
+        data.fileName = getData.data.data[0].name;
+        data.time = getData.data.data[0].time;
+        data.size = getData.data.data[0].size;
+        data.path = getData.data.data[0].path;
       }
-      const getData = await GET(`/api/file/${newVal.id}`);
-      data.id = getData.data.data[0].id;
-      data.url = `${getData.data.data[0].url}`;
-      data.fileName = getData.data.data[0].name;
-      data.time = getData.data.data[0].time;
-      data.size = getData.data.data[0].size;
-      data.path = getData.data.data[0].path;
-    });
+    );
 
     return {
       data,
+      msg,
       computedSize,
       handleClickClose,
       handleClickCopyLink,
@@ -168,6 +179,7 @@ const ManagerModel = defineComponent({
         ) : (
           ''
         )}
+        <m-toast></m-toast>
       </div>
     );
   },
