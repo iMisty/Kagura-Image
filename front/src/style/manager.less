@@ -41,18 +41,18 @@
       }
     }
     // 分页器
-    &__page{
+    &__page {
       .layout(flex,row,center,center,nowrap);
     }
-   @media screen and (max-width: 960px){
-     &{
-       grid-template-columns: repeat(2,1fr);
-     }
-   }
-   @media screen and (max-width: 500px){
-    &{
-      grid-template-columns: repeat(1,1fr);
+    @media screen and (max-width: 960px) {
+      & {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
-  }
+    @media screen and (max-width: 500px) {
+      & {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
   }
 }

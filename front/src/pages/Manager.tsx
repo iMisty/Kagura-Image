@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-18 11:26:09
- * @LastEditTime: 2021-06-12 05:38:14
+ * @LastEditTime: 2021-06-13 03:33:42
  * @LastEditors: Miya
  * @Description: 文件管理页面
  * @FilePath: \front\src\pages\Manager.tsx
@@ -21,6 +21,7 @@ const data = reactive({
   nowPage: 1,
   nowPreview: 0,
 });
+
 
 /**
  * @description: 获取页数对应图片数据
@@ -103,7 +104,7 @@ const Manager = defineComponent({
   },
   async mounted() {
     const getData = await GET('/api/file');
-    data.file = getData.data.data;
+    data.file = getData.data.data.reverse();
     console.log(getData);
     const a = await getFileView(1);
     console.log(a);
