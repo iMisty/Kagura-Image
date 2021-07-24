@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-23 15:51:43
- * @LastEditTime: 2021-06-12 03:04:02
+ * @LastEditTime: 2021-07-26 00:31:09
  * @LastEditors: Miya
  * @Description: MongoDB图片模型
  * @FilePath: \backend\src\model\Image.ts
@@ -18,12 +18,13 @@ import * as Mongoose from 'mongoose';
  *  Time: 上传时间
  */
 const imageModel = new Mongoose.Schema({
+  id: Number,
   size: Number,
   name: String,
   path: String,
+  // thumbnails: String,
   url: String,
   time: String,
-  id: Number,
 });
 
 module.exports = Mongoose.model('Image', imageModel);
