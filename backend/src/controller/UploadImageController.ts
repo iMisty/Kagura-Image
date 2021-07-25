@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:41:07
- * @LastEditTime: 2021-06-13 05:45:57
+ * @LastEditTime: 2021-07-26 00:41:31
  * @LastEditors: Miya
  * @Description: Update image controller
- * @FilePath: \Kagura-Image\backend\src\controller\UploadImageController.ts
+ * @FilePath: \backend\src\controller\UploadImageController.ts
  */
 
 import { CTXNormal } from '../interface/ctx';
@@ -27,18 +27,19 @@ interface CTXUpdate extends CTXNormal {
 const DBC = require('../controller/DataBaseController');
 const FC = require('../controller/FileController');
 const fs = require('fs');
-
+// https://github.com/aheckmann/gm
+const gm = require('gm');
 
 class UploadController {
   /**
    * @description: 上传单个图片
-   * @param {CTXNormal} ctx
+   * @param {Object<imgUpload>} image
    * @return {*}
    */
   private static async uploadImage(image: imgUpload) {
     // 检测文件夹是否存在
     const exists = await FC.getDirExists();
-    if(!exists){
+    if (!exists) {
       await fs.promises.mkdir('upload');
     }
     // 用户输入图片信息
@@ -58,6 +59,19 @@ class UploadController {
     console.log('Upload to Database:' + db);
 
     return { db };
+  }
+
+  /**
+   * @description: 生成缩略图
+   * @param {*}
+   * @return {*}
+   */
+  private static async createThumbnails(image: imgUpload) {
+    // 判断有无thumb目录
+    const exists = await FC.getDirExists('./src/thumb');
+    if (!exists) {
+      await fs.promises.mkdir('thumb');
+    }
   }
 
   /**
