@@ -1,8 +1,8 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:41:07
- * @LastEditTime: 2021-07-26 15:42:09
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-07-27 00:49:06
+ * @LastEditors: Miya
  * @Description: Update image controller
  * @FilePath: \backend\src\controller\UploadImageController.ts
  */
@@ -27,8 +27,7 @@ interface CTXUpdate extends CTXNormal {
 const DBC = require('../controller/DataBaseController');
 const FC = require('../controller/FileController');
 const fs = require('fs');
-// https://github.com/aheckmann/gm
-const gm = require('gm');
+const resizeImg = require('resize-img');
 
 class UploadController {
   /**
@@ -37,9 +36,11 @@ class UploadController {
    * @return {*}
    */
   private static async uploadImage(image: imgUpload) {
+    console.log('Start upload image');
     // 检测文件夹是否存在
     const exists = await FC.getDirExists();
     if (!exists) {
+      console.log('Upload Files is missing.make it now');
       await fs.promises.mkdir('upload');
     }
     // 用户输入图片信息
@@ -66,13 +67,27 @@ class UploadController {
    * @param {*}
    * @return {*}
    */
-  private static async createThumbnails(image: imgUpload) {
+  public static async createThumbnails(image: imgUpload) {
     // 判断有无thumb目录
-    const exists = await FC.getDirExists('./src/thumb');
+    const exists = FC.getDirExists('./src/thumbnail');
     if (!exists) {
       console.log('Trumbnails Dir is missing,make this now');
-      await fs.promises.mkdir('thumb');
+      await fs.promises.mkdir('./src/thumbnail');
     }
+    // 缩略图生成
+    const result = await resizeImg(
+      fs.readFileSync(
+        './src/upload/upload_c49f32fbc85b02942341df45d2a395f6.jpg'
+      ),
+      { width: 128 }
+    ).then((buffer: any) => {
+      console.log(buffer);
+      fs.writeFileSync(
+        './src/thumbnail/upload_c49f32fbc85b02942341df45d2a395f6.jpg',
+        buffer
+      );
+    });
+    console.log(result);
   }
 
   /**
