@@ -1,8 +1,8 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:41:07
- * @LastEditTime: 2021-07-26 00:41:31
- * @LastEditors: Miya
+ * @LastEditTime: 2021-07-26 15:42:09
+ * @LastEditors: Please set LastEditors
  * @Description: Update image controller
  * @FilePath: \backend\src\controller\UploadImageController.ts
  */
@@ -43,7 +43,7 @@ class UploadController {
       await fs.promises.mkdir('upload');
     }
     // 用户输入图片信息
-    console.log(image);
+    console.table(image);
     // 截取地址
     const resPath = image.path.split('upload_');
     // 输出数据
@@ -70,6 +70,7 @@ class UploadController {
     // 判断有无thumb目录
     const exists = await FC.getDirExists('./src/thumb');
     if (!exists) {
+      console.log('Trumbnails Dir is missing,make this now');
       await fs.promises.mkdir('thumb');
     }
   }
