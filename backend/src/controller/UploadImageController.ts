@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:41:07
- * @LastEditTime: 2021-07-27 00:49:06
+ * @LastEditTime: 2021-07-28 00:41:09
  * @LastEditors: Miya
  * @Description: Update image controller
  * @FilePath: \backend\src\controller\UploadImageController.ts
@@ -37,29 +37,29 @@ class UploadController {
    */
   private static async uploadImage(image: imgUpload) {
     console.log('Start upload image');
-    // 检测文件夹是否存在
-    const exists = await FC.getDirExists();
-    if (!exists) {
-      console.log('Upload Files is missing.make it now');
-      await fs.promises.mkdir('upload');
-    }
-    // 用户输入图片信息
-    console.table(image);
-    // 截取地址
-    const resPath = image.path.split('upload_');
-    // 输出数据
-    const data = {
-      size: image.size,
-      name: image.name,
-      path: `upload_${resPath[1]}`,
-      time: formatDate(image.lastModifiedDate),
-    };
-    console.log(data);
-    // 录入数据库
-    const db = await DBC.addNewImage(data);
-    console.log('Upload to Database:' + db);
+    return new Promise((resolve) => {
+      // 用户输入图片信息
+      console.table(image);
+      // 截取地址
+      const resPath = image.path.split('upload_');
+      // 输出数据
+      const data = {
+        size: image.size,
+        name: image.name,
+        path: `upload_${resPath[1]}`,
+        time: formatDate(image.lastModifiedDate),
+      };
+      console.table(data);
+      console.log('Upload image successed');
+      resolve(data);
+    });
 
-    return { db };
+    // return { data };
+    // // 录入数据库
+    // const db = await DBC.addNewImage(data);
+    // console.log('Upload to Database:' + db);
+
+    // return { db };
   }
 
   /**
@@ -103,7 +103,7 @@ class UploadController {
       return (ctx.body = {
         code: 1,
         msg: 'ok',
-        data: result.db,
+        data: result,
       });
     } catch (err) {
       return (ctx.body = {
