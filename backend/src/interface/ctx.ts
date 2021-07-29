@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:58:37
- * @LastEditTime: 2021-06-12 04:38:47
+ * @LastEditTime: 2021-08-02 00:45:37
  * @LastEditors: Miya
  * @Description: ctx interface
  * @FilePath: \backend\src\interface\ctx.ts
@@ -42,4 +42,13 @@ interface CTXParams {
   };
   body: any;
 }
-export { CTXNormal, CTXRead, CTXReturn, CTXParams };
+
+// 提交数据库用文件接口
+interface UploadImageObject {
+  size: Number;
+  name: String;
+  path: String;
+  time: String;
+}
+
+export { CTXNormal, CTXRead, CTXReturn, CTXParams,UploadImageObject };
