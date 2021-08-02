@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-14 17:35:13
- * @LastEditTime: 2021-03-23 16:46:57
+ * @LastEditTime: 2021-08-03 00:16:39
  * @LastEditors: Miya
  * @Description: APP config
- * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\backend\src\app.ts
+ * @FilePath: \backend\src\app.ts
  * @Version: 1.0
  */
 
@@ -30,17 +30,17 @@ app.use(
     formidable: {
       maxFileSize: 20000 * 1024 * 1024,
       // 上传目录
-      uploadDir: path.join(__dirname, '/upload'),
+      uploadDir: path.join(__dirname, '/static/upload'),
       // 保留文件扩展名
       keepExtensions: true,
     },
   })
 );
-
-app.use(assets(__dirname + '/upload'));
+console.log(__dirname);
+app.use(assets(__dirname + '/static'));
 
 app.use(router());
-app.listen(12450);
+app.listen(12451);
 
 // 打印日志
 app.use(async (ctx: any, next: any) => {
@@ -60,5 +60,5 @@ Mongoose.connect(dbConfig.db, {
   .catch((err: any) => {
     console.log(err);
   });
-
-console.log('APP is Listening on Port 12450');
+console.log(global)
+console.log('APP is Listening on Port 12451');
