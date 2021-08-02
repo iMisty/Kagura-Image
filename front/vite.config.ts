@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 11:14:06
- * @LastEditTime: 2021-07-26 23:59:51
+ * @LastEditTime: 2021-08-02 23:24:37
  * @LastEditors: Miya
  * @Description: vite config
  * @FilePath: \front\vite.config.ts
@@ -18,7 +18,7 @@ export default defineConfig({
     port: 12450,
     proxy: {
       '/api': {
-        target: 'http://localhost:12450/',
+        target: 'http://localhost:12451/',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
