@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:41:07
- * @LastEditTime: 2021-08-02 01:33:40
+ * @LastEditTime: 2021-08-03 00:14:30
  * @LastEditors: Miya
  * @Description: Update image controller
  * @FilePath: \backend\src\controller\UploadImageController.ts
@@ -39,7 +39,7 @@ class UploadController {
     console.log('Start upload image');
     return new Promise((resolve) => {
       // 用户输入图片信息
-      console.table(image);
+      // console.table(image);
       // 截取地址
       const resPath = image.path.split('upload_');
       // 输出数据
@@ -53,7 +53,7 @@ class UploadController {
       console.log('Upload image successed');
       resolve(data);
     }).catch((err) => {
-      console.table(err);
+      console.log(err);
     });
 
     // return { data };
@@ -69,43 +69,42 @@ class UploadController {
    * @param {*}
    * @return {*}
    */
-  //TODO : FIX
-  public static async createThumbnails(image: UploadImageObject): Promise<any> {
+  private static async createThumbnails(
+    image: UploadImageObject
+  ): Promise<any> {
     // 判断有无thumb目录
-    const exists = FC.getDirExists('./src/thumbnail');
+    const exists = FC.getDirExists('./src/static/thumbnail');
     if (!exists) {
-      console.log('Trumbnails Dir is missing,make this now');
-      await fs.promises.mkdir('./src/thumbnail');
+      console.log('Thumbnails Dir is missing,make this now');
+      await fs.promises.mkdir('./src/static/thumbnail');
     }
     // 缩略图生成
-    return new Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
+      console.log('Upload Thumbnail now');
       // 图片相对地址
-      const imageSrc = `./src/upload/${image.path}`;
+      const imageSrc = `./src/static/upload/${image.path}`;
       // 缩略图相对地址
-      const thumbnailSrc = `.'/src/thumbnail/${image.path}`;
+      const thumbnailSrc = `./src/static/thumbnail/${image.path}`;
       // 生成缩略图
-      resizeImg(fs.readFileSync(imageSrc), { width: 128 })
+      const thumbnail = resizeImg(fs.readFileSync(imageSrc), { width: 128 })
         .then((buffer: Buffer) => {
           fs.writeFileSync(thumbnailSrc, buffer);
         })
-        .then(resolve(image))
+        .then(() => {
+          console.log('Upload Thumbnail Successed');
+          console.table(image);
+          resolve({ ...image, thumbnailSrc });
+          return { ...image, thumbnailSrc };
+        })
         .catch((err: any) => {
+          console.log('Upload Thumbnail Failed');
           reject(err);
+        })
+        .finally(() => {
+          console.log('Upload Thumbnail Complete');
         });
+      return thumbnail;
     });
-    const result = await resizeImg(
-      fs.readFileSync(
-        './src/upload/upload_c49f32fbc85b02942341df45d2a395f6.jpg'
-      ),
-      { width: 128 }
-    ).then((buffer: any) => {
-      console.log(buffer);
-      fs.writeFileSync(
-        './src/thumbnail/upload_c49f32fbc85b02942341df45d2a395f6.jpg',
-        buffer
-      );
-    });
-    console.log(result);
   }
 
   /**
@@ -116,21 +115,20 @@ class UploadController {
   public static async setUploadImage(ctx: CTXUpdate) {
     const image = ctx.request.files.image;
 
-    try {
-      const result = await UploadController.uploadImage(image);
-      const db = await UploadController.createThumbnails(image);
-      return (ctx.body = {
-        code: 1,
-        msg: 'ok',
-        data: result,
-        db,
-      });
-    } catch (err) {
-      return (ctx.body = {
-        code: 0,
-        err,
-      });
-    }
+    const imageUpload = await UploadController.uploadImage(image);
+
+    const thumbnailUpload = await UploadController.createThumbnails(
+      imageUpload as UploadImageObject
+    );
+
+    console.log(imageUpload);
+    console.log(thumbnailUpload);
+
+    return (ctx.body = {
+      code: 1,
+      msg: 'ok',
+      data: { ...thumbnailUpload },
+    });
   }
 }
 
