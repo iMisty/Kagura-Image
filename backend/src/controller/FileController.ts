@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-22 10:11:32
- * @LastEditTime: 2021-07-27 00:48:16
+ * @LastEditTime: 2021-08-03 00:24:30
  * @LastEditors: Miya
  * @Description: 文件管理
  * @FilePath: \backend\src\controller\FileController.ts
@@ -24,8 +24,8 @@ class FileController {
    */
   private static async isDirExists(dir: String = './src/upload') {
     const isHasDir = await fs.exists(dir, (exists: Boolean) => {
-      console.log(dir)
-      console.log(exists)
+      console.log(dir);
+      console.log(exists);
       return exists;
     });
     return isHasDir;
@@ -36,15 +36,16 @@ class FileController {
    * @return {Boolean}
    */
   private static async isFileExists(file: string) {
-    const dir = './src/upload';
-    try {
-      await fs.promises.stat(`${dir}/${file}`);
-      console.log('true');
-      return true;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
+    const dir = './src/static/upload';
+    return fs.promises
+      .stat(`${dir}/${file}`)
+      .then(() => {
+        return true;
+      })
+      .catch((err: any) => {
+        console.log(err);
+        return false;
+      });
   }
 
   /**
@@ -52,7 +53,7 @@ class FileController {
    * @param {String} dir
    * @return {*}
    */
-  private static async openRootFolder(dir: String = './src/upload') {
+  private static async openRootFolder(dir: String = './src/static/upload') {
     const files = await ImageModel.find();
     return files;
   }
