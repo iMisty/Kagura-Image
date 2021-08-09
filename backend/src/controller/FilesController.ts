@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-08-07 17:49:32
- * @LastEditTime: 2021-08-07 19:14:28
+ * @LastEditTime: 2021-08-13 17:37:34
  * @LastEditors: Miya
  * @Description: FileController Class
  * @FilePath: \Kagura-Image\backend\src\controller\FilesController.ts
@@ -39,8 +39,10 @@ class FilesController {
   public static async APIIsDirExist(ctx: any) {
     console.log(ctx.query);
     const param = ctx.query.path;
-    return new Promise(async () => {
-      await FilesController.isDirExist(param);
+    return
+    return new Promise(async (resolve) => {
+      const result = await FilesController.isDirExist(param);
+      resolve(result);
     })
       .then((res) => {
         console.log('[API isDirExist]:');
