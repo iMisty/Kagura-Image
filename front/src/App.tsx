@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 14:57:29
- * @LastEditTime: 2021-06-13 00:49:30
+ * @LastEditTime: 2021-08-23 17:00:25
  * @LastEditors: Miya
  * @Description: APP page
  * @FilePath: \front\src\App.tsx
@@ -33,15 +33,7 @@ const APP = defineComponent({
               <router-link class="navbar--item" tag="article" to="/manager">
                 文件管理
               </router-link>
-              {/* <router-link class="navbar--item" tag="article" to="/admin">
-                后台
-              </router-link> */}
             </section>
-            {/* <section class="navbar--info">
-              <router-link class="navbar--item" tag="article" to="/login">
-                登录
-              </router-link>
-            </section> */}
           </nav>
           <router-view></router-view>
         </section>
