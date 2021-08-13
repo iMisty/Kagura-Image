@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-22 16:07:01
- * @LastEditTime: 2021-06-12 04:47:35
+ * @LastEditTime: 2021-08-23 18:16:15
  * @LastEditors: Miya
  * @Description: AJAX Methods
  * @FilePath: \front\src\utils\request.ts
@@ -37,7 +37,7 @@ export const UploadRequest = async (url: string, data: any | Blob) => {
 
 export const GET = async (url: string, data?: any) => {
   const result = await axios
-    .get(url)
+    .get(url, { data })
     .then((res) => {
       return res;
     })
