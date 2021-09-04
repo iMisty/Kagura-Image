@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-06-11 15:08:33
- * @LastEditTime: 2021-08-13 17:57:21
+ * @LastEditTime: 2021-09-05 06:14:29
  * @LastEditors: Miya
  * @Description: 文件相关
- * @FilePath: \backend\src\router\file.ts
+ * @FilePath: \Kagura-Image\backend\src\router\file.ts
  */
 const router = require('koa-router')();
 // const FileController = require('../controller/FileController');
@@ -22,7 +22,5 @@ router.prefix('/file');
 // router.get('/:id', DBController.getImageList);
 // // 删除图片
 // router.delete('/:path', FileController.setDeleteImage);
-
-router.get('/test', FilesController.APIIsDirExist);
 
 export default router;

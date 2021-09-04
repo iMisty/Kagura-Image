@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-14 17:35:13
- * @LastEditTime: 2021-08-07 19:11:17
+ * @LastEditTime: 2021-09-05 06:13:54
  * @LastEditors: Miya
  * @Description: APP config
- * @FilePath: \backend\src\app.ts
+ * @FilePath: \Kagura-Image\backend\src\app.ts
  * @Version: 1.0
  */
 
@@ -60,5 +60,4 @@ Mongoose.connect(dbConfig.db, {
   .catch((err: any) => {
     console.log(err);
   });
-
-  console.log('APP is Listening on Port 12451');
+console.log('APP is Listening on Port 12451');

@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:41:07
- * @LastEditTime: 2021-08-03 00:14:30
+ * @LastEditTime: 2021-08-19 00:23:15
  * @LastEditors: Miya
  * @Description: Update image controller
  * @FilePath: \backend\src\controller\UploadImageController.ts
@@ -51,17 +51,10 @@ class UploadController {
       };
       console.log(data);
       console.log('Upload image successed');
-      resolve(data);
+      return resolve(data);
     }).catch((err) => {
       console.log(err);
     });
-
-    // return { data };
-    // // 录入数据库
-    // const db = await DBC.addNewImage(data);
-    // console.log('Upload to Database:' + db);
-
-    // return { db };
   }
 
   /**
@@ -72,12 +65,6 @@ class UploadController {
   private static async createThumbnails(
     image: UploadImageObject
   ): Promise<any> {
-    // 判断有无thumb目录
-    const exists = FC.getDirExists('./src/static/thumbnail');
-    if (!exists) {
-      console.log('Thumbnails Dir is missing,make this now');
-      await fs.promises.mkdir('./src/static/thumbnail');
-    }
     // 缩略图生成
     return await new Promise((resolve, reject) => {
       console.log('Upload Thumbnail now');
@@ -113,10 +100,11 @@ class UploadController {
    * @return {*}
    */
   public static async setUploadImage(ctx: CTXUpdate) {
+    // Request body
     const image = ctx.request.files.image;
-
+    // 图片上传
     const imageUpload = await UploadController.uploadImage(image);
-
+    // 缩略图生成
     const thumbnailUpload = await UploadController.createThumbnails(
       imageUpload as UploadImageObject
     );
