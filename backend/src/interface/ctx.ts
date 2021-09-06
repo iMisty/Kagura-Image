@@ -8,19 +8,13 @@
  */
 
 // 默认ctx内含字段
-interface CTXNormal {
-  body: {
-    msg?: String;
-    code?: Number;
-    err?: unknown;
-    data?: unknown;
-    db?: unknown;
-  };
-  dir: String;
+interface CTX {
+  code: number,
+  msg: string
 }
 
-// 读取文件字段
-interface CTXRead extends CTXNormal {
+// 读取文件接口字段
+interface CTXRead extends CTX {
   request: {
     body: {
       dir: String;
@@ -29,10 +23,9 @@ interface CTXRead extends CTXNormal {
   };
 }
 
-interface CTXReturn {
-  code: Number;
-  data?: unknown;
-  msg?: String;
+// 默认返回接口字段
+interface CTXReturn extends CTX {
+  data?: unknown
 }
 
 interface CTXParams {
@@ -51,4 +44,4 @@ interface UploadImageObject {
   time: String;
 }
 
-export { CTXNormal, CTXRead, CTXReturn, CTXParams,UploadImageObject };
+export { CTXNormal, CTXRead, CTXReturn, CTXParams, UploadImageObject };
