@@ -1,14 +1,14 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-22 10:11:32
- * @LastEditTime: 2021-08-19 00:41:04
+ * @LastEditTime: 2021-09-13 01:11:42
  * @LastEditors: Miya
  * @Description: 文件管理
  * @FilePath: \backend\src\controller\FileController.ts
  * @Version: 1.0
  */
 
-import { CTXParams, CTXRead, CTXReturn } from '../interface/ctx';
+import { CTXBody, CTXParams, CTXRead, CTXReturn } from '../interface/ctx';
 
 const fs = require('fs');
 
@@ -95,10 +95,10 @@ class FileController {
 
   /**
    * @description: API: 读取图片根目录文件
-   * @param {CTXRead} ctx
+   * @param {CTXBody} ctx
    * @return {*} filelist
    */
-  public static async getRootDirFiles(ctx: CTXRead): Promise<CTXReturn> {
+  public static async getRootDirFiles(ctx: CTXBody): Promise<CTXReturn> {
     const dir = './src/upload';
     try {
       const result = await FileController.openRootFolder(dir);

@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:58:37
- * @LastEditTime: 2021-09-13 01:03:22
+ * @LastEditTime: 2021-09-13 02:16:18
  * @LastEditors: Miya
  * @Description: ctx interface
  * @FilePath: \backend\src\interface\ctx.ts
@@ -9,8 +9,8 @@
 
 // 默认ctx内含字段
 interface CTX {
-  code: number,
-  msg: string
+  code: number;
+  msg: string;
 }
 
 // 读取文件接口字段
@@ -25,7 +25,7 @@ interface CTXRead extends CTX {
 
 // 默认返回接口字段
 interface CTXReturn extends CTX {
-  data?: unknown
+  data?: unknown;
 }
 
 interface CTXParams {
@@ -36,12 +36,22 @@ interface CTXParams {
   body: any;
 }
 
+interface CTXBody {
+  body: {
+    code: number;
+    msg: string;
+    data?: Object | String | Array<Object>;
+  };
+}
+
 // 提交数据库用文件接口
 interface UploadImageObject {
   size: Number;
-  name: String;
-  path: String;
-  time: String;
+  name: string;
+  path: string;
+  time: string;
+  lastModifiedDate?: string;
+  type?: string;
 }
 
-export { CTX, CTXRead, CTXReturn, CTXParams, UploadImageObject };
+export { CTX, CTXRead, CTXReturn, CTXParams, CTXBody, UploadImageObject };

@@ -1,14 +1,13 @@
 /*
  * @Author: Miya
  * @Date: 2021-08-07 17:49:32
- * @LastEditTime: 2021-08-13 17:37:34
+ * @LastEditTime: 2021-09-13 01:26:02
  * @LastEditors: Miya
  * @Description: FileController Class
- * @FilePath: \Kagura-Image\backend\src\controller\FilesController.ts
+ * @FilePath: \backend\src\controller\FilesController.ts
  */
 
 import { readdir } from 'fs/promises';
-import { rejects } from 'node:assert';
 import { CTXParams, CTXReturn } from '../interface/ctx';
 
 class FilesController {
@@ -39,7 +38,6 @@ class FilesController {
   public static async APIIsDirExist(ctx: any) {
     console.log(ctx.query);
     const param = ctx.query.path;
-    return
     return new Promise(async (resolve) => {
       const result = await FilesController.isDirExist(param);
       resolve(result);

@@ -1,25 +1,19 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:41:07
- * @LastEditTime: 2021-09-13 01:04:23
+ * @LastEditTime: 2021-09-13 02:20:42
  * @LastEditors: Miya
  * @Description: Update image controller
  * @FilePath: \backend\src\controller\UploadImageController.ts
  */
 
+import { HOST } from '../config/upload';
 import { CTX, UploadImageObject } from '../interface/ctx';
 import { formatDate } from '../util/formatDate';
 
-// 上传文件字段
-interface imgUpload {
-  size: Number;
-  path: String;
-  name: String;
-  lastModifiedDate: string;
-}
 // TODO: fix any
 interface CTXUpdate extends CTX {
-  body: { code: number; msg: string; data: any; };
+  body: { code: number; msg: string; data?: any };
   request: {
     files: any;
   };
@@ -36,11 +30,14 @@ class UploadController {
    * @param {Object<imgUpload>} image
    * @return {*}
    */
-  private static async uploadImage(image: imgUpload) {
+  private static async uploadImage(image: UploadImageObject) {
     console.log('Start upload image');
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
+      if (image.type === 'image/gif') {
+        reject('Error: Image format not supported');
+      }
       // 用户输入图片信息
-      // console.table(image);
+      console.log(image);
       // 截取地址
       const resPath = image.path.split('upload_');
       // 输出数据
@@ -50,11 +47,11 @@ class UploadController {
         path: `upload_${resPath[1]}`,
         time: formatDate(image.lastModifiedDate),
       };
-      console.log(data);
       console.log('Upload image successed');
       return resolve(data);
     }).catch((err) => {
       console.log(err);
+      return false;
     });
   }
 
@@ -63,36 +60,29 @@ class UploadController {
    * @param {*}
    * @return {*}
    */
-  private static async createThumbnails(
-    image: UploadImageObject
-  ): Promise<any> {
-    // 缩略图生成
-    return await new Promise((resolve, reject) => {
-      console.log('Upload Thumbnail now');
-      // 图片相对地址
-      const imageSrc = `./src/static/upload/${image.path}`;
-      // 缩略图相对地址
-      const thumbnailSrc = `./src/static/thumbnail/${image.path}`;
+  private static createThumbnails(image: UploadImageObject) {
+    console.log('Upload Thumbnail now');
+    // 图片相对地址
+    const imageSrc = `./src/static/upload/${image.path}`;
+    // 缩略图相对地址
+    const thumbnailSrc = `./src/static/thumbnail/${image.path}`;
+    const thumbnailOutput = `${HOST}/thumbnail/${image.path}`;
+    try {
       // 生成缩略图
-      const thumbnail = resizeImg(fs.readFileSync(imageSrc), { width: 128 })
-        .then((buffer: Buffer) => {
-          fs.writeFileSync(thumbnailSrc, buffer);
-        })
-        .then(() => {
-          console.log('Upload Thumbnail Successed');
-          console.table(image);
-          resolve({ ...image, thumbnailSrc });
-          return { ...image, thumbnailSrc };
-        })
-        .catch((err: any) => {
-          console.log('Upload Thumbnail Failed');
-          reject(err);
-        })
-        .finally(() => {
-          console.log('Upload Thumbnail Complete');
-        });
-      return thumbnail;
-    });
+      resizeImg(fs.readFileSync(imageSrc), {
+        width: 128,
+      }).then((buffer: Buffer) => {
+        fs.writeFileSync(thumbnailSrc, buffer);
+      });
+      console.log('Upload Thumbnail Successed');
+      return { ...image, thumbnailOutput };
+    } catch (error) {
+      console.log('Upload Thumbnail Failed');
+      throw new Error(error);
+      return error;
+    } finally {
+      console.log('Upload Thumbnail Complete');
+    }
   }
 
   /**
@@ -100,24 +90,30 @@ class UploadController {
    * @param {*}
    * @return {*}
    */
+
+  // Fix: GIF Thumbnail 500
   public static async setUploadImage(ctx: CTXUpdate) {
-    // Request body
-    const image = ctx.request.files.image;
-    // 图片上传
-    const imageUpload = await UploadController.uploadImage(image);
-    // 缩略图生成
-    const thumbnailUpload = await UploadController.createThumbnails(
-      imageUpload as UploadImageObject
-    );
+    try {
+      // Request body
+      const image = ctx.request.files.image;
+      // 图片上传
+      const imageUpload = await UploadController.uploadImage(image);
+      // 缩略图生成
+      const thumbnailUpload = await UploadController.createThumbnails(
+        imageUpload as UploadImageObject
+      );
 
-    console.log(imageUpload);
-    console.log(thumbnailUpload);
-
-    return (ctx.body = {
-      code: 1,
-      msg: 'ok',
-      data: { ...thumbnailUpload },
-    });
+      return (ctx.body = {
+        code: 200,
+        msg: 'ok',
+        data: { ...thumbnailUpload },
+      });
+    } catch (error) {
+      return (ctx.body = {
+        code: 500,
+        msg: error,
+      });
+    }
   }
 }
 

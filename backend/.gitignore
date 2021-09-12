@@ -21,3 +21,11 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Image file
+src/static/upload/*.gif
+src/static/upload/*.png
+src/static/upload/*.jpg
+src/static/thumbnail/*.gif
+src/static/upload/*.jpg
+src/static/upload/*.png

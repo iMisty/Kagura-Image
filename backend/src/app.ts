@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-14 17:35:13
- * @LastEditTime: 2021-09-13 00:59:55
+ * @LastEditTime: 2021-09-13 01:51:42
  * @LastEditors: Miya
  * @Description: APP config
  * @FilePath: \backend\src\app.ts
@@ -21,9 +21,11 @@ import router from './router/index';
 
 const app = new Koa();
 
-// middlewares
+// middleware: CORS
 app.use(cors());
+// middleware: Log
 app.use(logger());
+// middleware: Multi Upload
 app.use(
   body2({
     multipart: true,
@@ -36,11 +38,12 @@ app.use(
     },
   })
 );
+// middleware: Static
 app.use(assets(__dirname + '/static'));
-
+// middleware: Router
 app.use(router());
-app.listen(12451);
 
+app.listen(12451);
 // 打印日志
 app.use(async (ctx: any, next: any) => {
   const start: Date = new Date();
@@ -56,7 +59,7 @@ Mongoose.connect(dbConfig.db, {
   .then(() => {
     console.log('MongoDB is Listening on Port 27471');
   })
-  .catch((err: any) => {
+  .catch((err: string) => {
     console.log(err);
   });
 console.log('APP is Listening on Port 12451');
