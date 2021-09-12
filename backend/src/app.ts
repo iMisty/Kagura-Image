@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-14 17:35:13
- * @LastEditTime: 2021-09-05 06:13:54
+ * @LastEditTime: 2021-09-13 00:59:55
  * @LastEditors: Miya
  * @Description: APP config
- * @FilePath: \Kagura-Image\backend\src\app.ts
+ * @FilePath: \backend\src\app.ts
  * @Version: 1.0
  */
 
@@ -36,7 +36,6 @@ app.use(
     },
   })
 );
-console.log(__dirname);
 app.use(assets(__dirname + '/static'));
 
 app.use(router());

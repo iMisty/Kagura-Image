@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:58:37
- * @LastEditTime: 2021-08-02 00:45:37
+ * @LastEditTime: 2021-09-13 01:03:22
  * @LastEditors: Miya
  * @Description: ctx interface
  * @FilePath: \backend\src\interface\ctx.ts
@@ -44,4 +44,4 @@ interface UploadImageObject {
   time: String;
 }
 
-export { CTXNormal, CTXRead, CTXReturn, CTXParams, UploadImageObject };
+export { CTX, CTXRead, CTXReturn, CTXParams, UploadImageObject };

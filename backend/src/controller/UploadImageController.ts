@@ -1,13 +1,13 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:41:07
- * @LastEditTime: 2021-08-19 00:23:15
+ * @LastEditTime: 2021-09-13 01:04:23
  * @LastEditors: Miya
  * @Description: Update image controller
  * @FilePath: \backend\src\controller\UploadImageController.ts
  */
 
-import { CTXNormal, UploadImageObject } from '../interface/ctx';
+import { CTX, UploadImageObject } from '../interface/ctx';
 import { formatDate } from '../util/formatDate';
 
 // 上传文件字段
@@ -18,7 +18,8 @@ interface imgUpload {
   lastModifiedDate: string;
 }
 // TODO: fix any
-interface CTXUpdate extends CTXNormal {
+interface CTXUpdate extends CTX {
+  body: { code: number; msg: string; data: any; };
   request: {
     files: any;
   };
