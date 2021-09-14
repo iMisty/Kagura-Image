@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:41:07
- * @LastEditTime: 2021-09-13 02:20:42
+ * @LastEditTime: 2021-09-15 01:00:45
  * @LastEditors: Miya
  * @Description: Update image controller
  * @FilePath: \backend\src\controller\UploadImageController.ts
@@ -10,6 +10,7 @@
 import { HOST } from '../config/upload';
 import { CTX, UploadImageObject } from '../interface/ctx';
 import { formatDate } from '../util/formatDate';
+import { resizeImage } from '../util/resizeImg';
 
 // TODO: fix any
 interface CTXUpdate extends CTX {
@@ -22,7 +23,6 @@ interface CTXUpdate extends CTX {
 const DBC = require('../controller/DataBaseController');
 const FC = require('../controller/FileController');
 const fs = require('fs');
-const resizeImg = require('resize-img');
 
 class UploadController {
   /**
@@ -67,22 +67,35 @@ class UploadController {
     // 缩略图相对地址
     const thumbnailSrc = `./src/static/thumbnail/${image.path}`;
     const thumbnailOutput = `${HOST}/thumbnail/${image.path}`;
-    try {
-      // 生成缩略图
-      resizeImg(fs.readFileSync(imageSrc), {
-        width: 128,
-      }).then((buffer: Buffer) => {
-        fs.writeFileSync(thumbnailSrc, buffer);
+    return resizeImage(imageSrc, thumbnailSrc)
+      .then((res) => {
+        console.log(res);
+        return { ...image, res };
+      })
+      .catch((err) => {
+        console.log(err);
+        throw new Error(err);
+      })
+      .finally(() => {
+        console.log('Upload Thumbnail Complete');
       });
-      console.log('Upload Thumbnail Successed');
-      return { ...image, thumbnailOutput };
-    } catch (error) {
-      console.log('Upload Thumbnail Failed');
-      throw new Error(error);
-      return error;
-    } finally {
-      console.log('Upload Thumbnail Complete');
-    }
+
+    // try {
+    //   // 生成缩略图
+    //   resizeImg(fs.readFileSync(imageSrc), {
+    //     width: 128,
+    //   }).then((buffer: Buffer) => {
+    //     fs.writeFileSync(thumbnailSrc, buffer);
+    //   });
+    //   console.log('Upload Thumbnail Successed');
+    //   return { ...image, thumbnailOutput };
+    // } catch (error) {
+    //   console.log('Upload Thumbnail Failed');
+    //   throw new Error(error);
+    //   return error;
+    // } finally {
+    //   console.log('Upload Thumbnail Complete');
+    // }
   }
 
   /**

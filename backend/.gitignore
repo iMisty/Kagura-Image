@@ -27,5 +27,5 @@ src/static/upload/*.gif
 src/static/upload/*.png
 src/static/upload/*.jpg
 src/static/thumbnail/*.gif
-src/static/upload/*.jpg
-src/static/upload/*.png
+src/static/thumbnail/*.jpg
+src/static/thumbnail/*.png
