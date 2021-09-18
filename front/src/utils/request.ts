@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-22 16:07:01
- * @LastEditTime: 2021-08-23 18:16:15
+ * @LastEditTime: 2021-09-19 18:07:16
  * @LastEditors: Miya
  * @Description: AJAX Methods
  * @FilePath: \front\src\utils\request.ts
@@ -9,7 +9,6 @@
  */
 
 import axios, { AxiosRequestConfig } from 'axios';
-import { HOST } from './host';
 
 // 上传图片用
 export const UploadRequest = async (url: string, data: any | Blob) => {
