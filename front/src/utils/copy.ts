@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-06-10 04:48:31
- * @LastEditTime: 2021-06-10 05:25:47
+ * @LastEditTime: 2021-09-15 18:02:29
  * @LastEditors: Miya
  * @Description: Copy to clipboard
  * @FilePath: \front\src\utils\copy.ts
@@ -11,7 +11,7 @@
  * @param {String} text
  * @return {String} link
  */
-export const setCopyText = (text: string) => {
+export const setCopyText = (text: string): void => {
   let transfer = document.createElement('input');
   document.body.appendChild(transfer);
   transfer.value = text;
