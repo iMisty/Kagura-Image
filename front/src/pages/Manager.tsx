@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-18 11:26:09
- * @LastEditTime: 2021-06-13 03:33:42
+ * @LastEditTime: 2021-09-19 18:07:34
  * @LastEditors: Miya
  * @Description: 文件管理页面
  * @FilePath: \front\src\pages\Manager.tsx
@@ -21,7 +21,6 @@ const data = reactive({
   nowPage: 1,
   nowPreview: 0,
 });
-
 
 /**
  * @description: 获取页数对应图片数据
