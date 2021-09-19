@@ -1,25 +1,25 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-18 17:24:22
- * @LastEditTime: 2021-03-18 17:24:40
+ * @LastEditTime: 2021-09-19 18:07:28
  * @LastEditors: Miya
  * @Description: Login Page
- * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\pages\Login.tsx
+ * @FilePath: \front\src\pages\Login.tsx
  * @Version: 1.0
  */
-import { defineComponent,reactive } from 'vue'
+import { defineComponent, reactive } from 'vue';
 
-const data = reactive({})
+const data = reactive({});
 
 const Login = defineComponent({
-    setup(){
-      data;
-      return{ data }
-    },
+  setup() {
+    data;
+    return { data };
+  },
 
-    render(){
-        return(<div class="login">DuanGA</div>)
-    }
+  render() {
+    return <div class="login">DuanGA</div>;
+  },
 });
 
 export default Login;
