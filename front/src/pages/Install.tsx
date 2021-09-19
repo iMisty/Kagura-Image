@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 13:57:14
- * @LastEditTime: 2021-03-15 14:34:48
+ * @LastEditTime: 2021-09-19 18:07:30
  * @LastEditors: Miya
  * @Description:
- * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\pages\Install.tsx
+ * @FilePath: \front\src\pages\Install.tsx
  * @Version:
  */
 import { defineComponent } from 'vue';
