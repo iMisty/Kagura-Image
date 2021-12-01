@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-14 17:35:13
- * @LastEditTime: 2021-09-13 01:51:42
+ * @LastEditTime: 2021-12-02 01:09:33
  * @LastEditors: Miya
  * @Description: APP config
  * @FilePath: \backend\src\app.ts
@@ -43,7 +43,7 @@ app.use(assets(__dirname + '/static'));
 // middleware: Router
 app.use(router());
 
-app.listen(12451);
+app.listen(12454);
 // 打印日志
 app.use(async (ctx: any, next: any) => {
   const start: Date = new Date();
@@ -62,4 +62,4 @@ Mongoose.connect(dbConfig.db, {
   .catch((err: string) => {
     console.log(err);
   });
-console.log('APP is Listening on Port 12451');
+console.log('APP is Listening on Port 12454');
