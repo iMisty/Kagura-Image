@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 18:05:02
- * @LastEditTime: 2021-06-13 03:04:32
+ * @LastEditTime: 2022-03-20 21:25:43
  * @LastEditors: Miya
  * @Description: 拖拽上传文件组件
- * @FilePath: \front\src\components\UploadFile.tsx
+ * @FilePath: \Kagura-Image\front\src\components\UploadFile.tsx
  * @Version: 1.0
  */
 import {
@@ -20,8 +20,8 @@ import MermaidUIButton from './mermaid-ui/button/button';
 import MermaidUIToast from './mermaid-ui/toast/toast';
 import ManagerModel from './ManagerModel';
 import '../style/upload.less';
-import { UploadRequest } from '../utils/request';
-import { HOST } from '../utils/host';
+// import { UploadRequest } from '../utils/request';
+import { HOST } from '../config/host';
 import { setCopyText } from '../utils/copy';
 
 interface upload {
@@ -103,7 +103,7 @@ const eventDragOver = (e: MouseEvent) => {
 
 /**
  * @description: 拖拽加载图片至预上传列表
- * @param {FileList<Array>} 上传图片列表
+ * @param {FileList<Array>} file 上传图片列表
  * @return {*}
  */
 // TODO: 检测非图片提示信息
@@ -122,8 +122,8 @@ const uploadEvent = async (file: FileList[]) => {
     };
     if (file[i].type.indexOf('image') === 0) {
       // 上传图片开启缩略图
-      const fileurl = window.URL.createObjectURL(file[i]);
-      fileJSON.url = fileurl;
+      const fileUrl = window.URL.createObjectURL(file[i] as any);
+      fileJSON.url = fileUrl;
       fileJSON.fileText = file[i].name;
       data.fileList.push(fileJSON);
     }
@@ -144,15 +144,15 @@ const uploadImage = async (index: number) => {
   const tempData = data.tempFile[index];
   console.log(tempData);
 
-  const res = await UploadRequest('/api/image', tempData);
+  // const res = await UploadRequest('/api/image', tempData);
 
-  console.log(res.data);
-  if (res.data.code === 1) {
-    data.fileList[index].res = res.data.data;
-    data.fileList[index].status = 'successed';
-    data.uploaded += 1;
-    // data.tempFile.splice(0, 1);
-  }
+  // console.log(res.data);
+  // if (res.data.code === 1) {
+  //   data.fileList[index].res = res.data.data;
+  //   data.fileList[index].status = 'succeeded';
+  //   data.uploaded += 1;
+  //   // data.tempFile.splice(0, 1);
+  // }
   return true;
 };
 

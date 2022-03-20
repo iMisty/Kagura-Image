@@ -47,7 +47,7 @@ class UploadController {
         path: `upload_${resPath[1]}`,
         time: formatDate(image.lastModifiedDate),
       };
-      console.log('Upload image successed');
+      console.log('Upload image succeeded');
       return resolve(data);
     }).catch((err) => {
       console.log(err);
@@ -87,7 +87,7 @@ class UploadController {
     //   }).then((buffer: Buffer) => {
     //     fs.writeFileSync(thumbnailSrc, buffer);
     //   });
-    //   console.log('Upload Thumbnail Successed');
+    //   console.log('Upload Thumbnail Succeeded');
     //   return { ...image, thumbnailOutput };
     // } catch (error) {
     //   console.log('Upload Thumbnail Failed');

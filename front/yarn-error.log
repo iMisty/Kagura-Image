@@ -1,30 +1,30 @@
 Arguments: 
-  D:\Program Files\nodejs\node.exe C:\Users\Jingyi\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
+  D:\Program Files\nodejs\node.exe C:\Users\Jingyi\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js dev
 
 PATH: 
-  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\Program Files\Git\cmd;D:\Program Files\nodejs\;C:\Users\Jingyi\AppData\Local\Microsoft\WindowsApps;C:\Users\Jingyi\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Jingyi\AppData\Local\GitHubDesktop\bin;C:\Users\Jingyi\AppData\Roaming\npm
+  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;d:\Program Files\Git\cmd;D:\Program Files\nodejs\;C:\Users\Jingyi\AppData\Local\Microsoft\WindowsApps;C:\Users\Jingyi\AppData\Roaming\npm;D:\Program Files\Microsoft VS Code\bin;C:\Users\Jingyi\AppData\Local\GitHubDesktop\bin
 
 Yarn version: 
-  1.22.10
+  1.22.17
 
 Node version: 
-  14.16.0
+  16.13.1
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: D:\GitHub\Kagura-Image\front\node_modules\esbuild: spawn EPERM
-      at ChildProcess.spawn (internal/child_process.js:403:11)
-      at Object.spawn (child_process.js:553:9)
-      at C:\Users\Jingyi\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:25829:24
+  Error: spawn EPERM
+      at ChildProcess.spawn (node:internal/child_process:412:11)
+      at Object.spawn (node:child_process:698:9)
+      at C:\Users\Jingyi\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:25728:24
       at new Promise (<anonymous>)
       at new F (C:\Users\Jingyi\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:5301:28)
-      at C:\Users\Jingyi\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:25828:12
-      at run (C:\Users\Jingyi\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:43133:7)
-      at BlockingQueue.maybePushConcurrencyQueue (C:\Users\Jingyi\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:43148:7)
-      at BlockingQueue.shift (C:\Users\Jingyi\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:43143:10)
-      at C:\Users\Jingyi\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:43087:15
+      at C:\Users\Jingyi\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:25725:12
+      at run (C:\Users\Jingyi\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:43176:7)
+      at BlockingQueue.maybePushConcurrencyQueue (C:\Users\Jingyi\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:43191:7)
+      at BlockingQueue.shift (C:\Users\Jingyi\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:43186:10)
+      at C:\Users\Jingyi\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:43130:15
 
 npm manifest: 
   {
@@ -39,7 +39,7 @@ npm manifest:
     "dependencies": {
       "axios": "^0.21.1",
       "path": "^0.12.7",
-      "vue": "^3.0.5",
+      "vue": "^3.2.31",
       "vue-router": "^4.0.5"
     },
     "devDependencies": {
@@ -575,9 +575,9 @@ Lockfile:
     integrity sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==
   
   follow-redirects@^1.10.0:
-    version "1.14.1"
-    resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.1.tgz#d9114ded0a1cfdd334e164e6662ad02bfd91ff43"
-    integrity sha512-HWqDgT7ZEkqRzBvc2s64vSZ/hfOceEol3ac/7tKwzuvEyWx3/4UegXh5oBOIotkGsObyk3xznnSRVADBgWSQVg==
+    version "1.14.8"
+    resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.8.tgz#016996fb9a11a100566398b1c6839337d7bfa8fc"
+    integrity sha512-1x0S9UVJHsQprFcEC/qnNzBLcIxsjAV905f/UkQxbclCsoTWlacCNOpQa/anodLl2uaEKFhfWOvM2Qg77+15zA==
   
   fsevents@~2.3.1:
     version "2.3.2"
@@ -600,13 +600,6 @@ Lockfile:
     version "1.0.0-beta.2"
     resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"
     integrity sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==
-  
-  glob-parent@>=5.1.2:
-    version "6.0.0"
-    resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-6.0.0.tgz#f851b59b388e788f3a44d63fab50382b2859c33c"
-    integrity sha512-Hdd4287VEJcZXUwv1l8a+vXC1GjOQqXe+VS30w/ypihpcnu9M1n3xeYeJu5CBpeEQj2nAab2xxz28GuA3vp4Ww==
-    dependencies:
-      is-glob "^4.0.1"
   
   globals@^11.1.0:
     version "11.12.0"
@@ -678,18 +671,6 @@ Lockfile:
     integrity sha512-XRAfAdyyY5F5cOXn7hYQDqh2Xmii+DEfIcQGxK/uNwMHhIkPWO0g8msXcbzLe+MpGoR951MlqM/2iIlU4vKDdQ==
     dependencies:
       has "^1.0.3"
-  
-  is-extglob@^2.1.1:
-    version "2.1.1"
-    resolved "https://registry.yarnpkg.com/is-extglob/-/is-extglob-2.1.1.tgz#a88c02535791f02ed37c76a1b9ea9773c833f8c2"
-    integrity sha1-qIwCU1eR8C7TfHahueqXc8gz+MI=
-  
-  is-glob@^4.0.1:
-    version "4.0.1"
-    resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-4.0.1.tgz#7567dbe9f2f5e2467bc77ab83c4a29482407a5dc"
-    integrity sha512-5G0tKtBTFImOqDnLB2hG6Bp2qcKEFduo4tZu9MT/H6NQv/ghhy30o55ufafxJ/LdH79LLs2Kfrn85TLKyA7BUg==
-    dependencies:
-      is-extglob "^2.1.1"
   
   is-what@^3.12.0:
     version "3.14.1"
@@ -806,9 +787,9 @@ Lockfile:
     integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
   
   nanoid@^3.1.23:
-    version "3.1.23"
-    resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.23.tgz#f744086ce7c2bc47ee0a8472574d5c78e4183a81"
-    integrity sha512-FiB0kzdP0FFVGDKlRLEQ1BgDzU87dy5NnzjeW9YZNt+/c3+q82EQDUwniSAUxp/F0gFNI1ZhKU1FqYsMuqZVnw==
+    version "3.2.0"
+    resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.2.0.tgz#62667522da6673971cca916a6d3eff3f415ff80c"
+    integrity sha512-fmsZYa9lpn69Ad5eDn7FMcnnSR+8R34W9qJEijxYhTbfOWzr22n1QxCMzXLK+ODyW2973V3Fux959iQoUxzUIA==
   
   needle@^2.5.2:
     version "2.6.0"
@@ -824,20 +805,15 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.72.tgz#14802ab6b1039a79a0c7d662b610a5bbd76eacbe"
     integrity sha512-LLUo+PpH3dU6XizX3iVoubUNheF/owjXCZZ5yACDxNnPtgFuludV1ZL3ayK1kVep42Rmm0+R9/Y60NQbZ2bifw==
   
-  normalize-url@>=4.5.1:
-    version "6.0.1"
-    resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-6.0.1.tgz#a4f27f58cf8c7b287b440b8a8201f42d0b00d256"
-    integrity sha512-VU4pzAuh7Kip71XEmO9aNREYAdMHFGTVj/i+CaTImS8x0i1d3jUZkXhqluy/PRgjPLMgsLQulYY3PJ/aSbSjpQ==
-  
   parse-node-version@^1.0.1:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/parse-node-version/-/parse-node-version-1.0.1.tgz#e2b5dbede00e7fa9bc363607f53327e8b073189b"
     integrity sha512-3YHlOa/JgH6Mnpr05jP9eDG254US9ek25LyIxZlDItp2iJtwyaXQb57lBYLdT3MowkUFYEV2XXNAYIPlESvJlA==
   
   path-parse@^1.0.6:
-    version "1.0.6"
-    resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
-    integrity sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw==
+    version "1.0.7"
+    resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
+    integrity sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==
   
   path@^0.12.7:
     version "0.12.7"

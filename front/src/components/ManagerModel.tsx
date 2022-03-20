@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-19 10:49:18
- * @LastEditTime: 2021-06-13 03:36:44
+ * @LastEditTime: 2022-03-20 21:25:02
  * @LastEditors: Miya
  * @Description: 点击图片弹出窗口
- * @FilePath: \front\src\components\ManagerModel.tsx
+ * @FilePath: \Kagura-Image\front\src\components\ManagerModel.tsx
  * @Version: 1.0
  */
 
@@ -13,7 +13,7 @@ import Card from './mermaid-ui/card/card';
 import Button from './mermaid-ui/button/button';
 import Toast from './mermaid-ui/toast/toast';
 import '../style/ManagerModel.less';
-import { GET } from '../utils/request';
+// import { GET } from '../utils/request';
 import { setCopyText } from '../utils/copy';
 
 interface FileManager {
@@ -102,13 +102,13 @@ const ManagerModel = defineComponent({
           handleClickClose();
           return true;
         }
-        const getData = await GET(`/api/file/${newVal}`);
-        data.id = getData.data.data[0].id;
-        data.url = `${getData.data.data[0].url}`;
-        data.fileName = getData.data.data[0].name;
-        data.time = getData.data.data[0].time;
-        data.size = getData.data.data[0].size;
-        data.path = getData.data.data[0].path;
+        // const getData = await GET(`/api/file/${newVal}`);
+        // data.id = getData.data.data[0].id;
+        // data.url = `${getData.data.data[0].url}`;
+        // data.fileName = getData.data.data[0].name;
+        // data.time = getData.data.data[0].time;
+        // data.size = getData.data.data[0].size;
+        // data.path = getData.data.data[0].path;
       }
     );
 

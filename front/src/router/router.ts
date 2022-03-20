@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 12:16:25
- * @LastEditTime: 2021-03-18 13:13:53
+ * @LastEditTime: 2022-03-20 21:24:18
  * @LastEditors: Miya
  * @Description: Router
- * @FilePath: \maid-chanc:\Users\Platinum Prism\Documents\GitHub\Kagura-Image\front\src\router\router.ts
+ * @FilePath: \Kagura-Image\front\src\router\router.ts
  * @Version: 1.0
  */
 
@@ -16,22 +16,22 @@ const routes = [
     path: '/',
     component: Home,
   },
-  {
-    path: '/test',
-    component: () => import('../pages/test'),
-  },
-  {
-    path: '/manager',
-    component: () => import('../pages/Manager'),
-  },
-  {
-    path: '/install',
-    component: () => import('../pages/Install'),
-  },
-  {
-    path: '/admin',
-    component: () => import('../pages/Admin'),
-  },
+  // {
+  //   path: '/test',
+  //   component: () => import('../pages/test'),
+  // },
+  // {
+  //   path: '/manager',
+  //   component: () => import('../pages/Manager'),
+  // },
+  // {
+  //   path: '/install',
+  //   component: () => import('../pages/Install'),
+  // },
+  // {
+  //   path: '/admin',
+  //   component: () => import('../pages/Admin'),
+  // },
 ];
 
 const router = createRouter({

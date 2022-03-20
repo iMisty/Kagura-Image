@@ -74,7 +74,7 @@ const uploadFileList = defineComponent({
           return '上传';
         case 'uploading':
           return '正在上传';
-        case 'successed':
+        case 'succeeded':
           return '上传成功';
         case 'error':
           return '上传失败';
@@ -96,11 +96,11 @@ const uploadFileList = defineComponent({
         <p class="upload--item__filename">{this.$props.fileText}</p>
         {/* <div class="upload--item__progress"></div> */}
         <div class="upload--item__button">
-          {this.$props.status === 'successed' ? (
+          {this.$props.status === 'succeeded' ? (
             <section class="upload--item__button--success">
               <m-button
                 color="info"
-                disabled={this.$props.status !== 'successed'}
+                disabled={this.$props.status !== 'succeeded'}
                 onClick={() => {
                   this.handleClickInfo();
                 }}
@@ -108,7 +108,7 @@ const uploadFileList = defineComponent({
                 信息
               </m-button>
               <m-button
-                disabled={this.$props.status !== 'successed'}
+                disabled={this.$props.status !== 'succeeded'}
                 onClick={() => {
                   this.handleClickCopy();
                 }}

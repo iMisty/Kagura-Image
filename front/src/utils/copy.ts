@@ -21,6 +21,6 @@ export const setCopyText = (text: string): void => {
     document.execCommand('copy');
   }
   transfer.blur();
-  console.log('Copy Successed');
+  console.log('Copy Succeeded');
   document.body.removeChild(transfer);
 };

@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-15 14:57:29
- * @LastEditTime: 2021-08-23 17:00:25
+ * @LastEditTime: 2022-03-20 21:22:00
  * @LastEditors: Miya
  * @Description: APP page
- * @FilePath: \front\src\App.tsx
+ * @FilePath: \Kagura-Image\front\src\App.tsx
  * @Version: 1.0
  */
 import { defineComponent } from 'vue';
@@ -18,12 +18,12 @@ const APP = defineComponent({
   components: {
     logo: Logo,
   },
-  setup() {
-  },
+  setup() {},
   render() {
     return (
       <main>
-        <section class="container">
+        TBD
+        {/* <section class="container">
           <nav>
             <section class="navbar--list">
               <logo />
@@ -36,7 +36,7 @@ const APP = defineComponent({
             </section>
           </nav>
           <router-view></router-view>
-        </section>
+        </section> */}
       </main>
     );
   },

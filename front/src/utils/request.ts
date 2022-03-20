@@ -1,59 +1,72 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-22 16:07:01
- * @LastEditTime: 2021-09-19 18:07:16
+ * @LastEditTime: 2022-03-20 16:56:02
  * @LastEditors: Miya
  * @Description: AJAX Methods
- * @FilePath: \front\src\utils\request.ts
+ * @FilePath: \Kagura-Image\front\src\utils\request.ts
  * @Version: 1.0
  */
 
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
+import Qs from 'qs';
 
-// 上传图片用
-export const UploadRequest = async (url: string, data: any | Blob) => {
-  let params = new FormData();
+// create an axios instance
+const service = axios.create({
+  // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  baseURL: '/',
+  // withCredentials: true, // send cookies when cross-domain requests
+  timeout: 5000, // request timeout
+});
 
-  const config = {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  }; //添加请求头
-  console.log(data);
-  params.append('image', data, data.name);
+// request interceptor
+service.interceptors.request.use(
+  (config) => {
+    // do something before request is sent
 
-  // 发送 AJAX 请求
-  const ajax = await axios
-    .post(url, params, config)
-    .then((res) => {
-      console.log(res);
-      return res;
-    })
-    .catch((err) => {
-      console.log(err);
-      return err;
-    });
-  return ajax;
-};
+    config.method === 'post'
+      ? (config.data = Qs.stringify({ ...config.data }))
+      : (config.params = { ...config.params });
 
-export const GET = async (url: string, data?: any) => {
-  const result = await axios
-    .get(url, { data })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      return err;
-    });
-  return result;
-};
+    if (!config.headers) {
+      return config;
+    }
+    if (config.method === 'put') {
+      config.headers['Content-Type'] = 'application/json';
+    } else {
+      config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    }
+    return config;
+  },
+  (error) => {
+    // do something with request error
+    console.log(error); // for debug
+    return Promise.reject(error);
+  }
+);
 
-export const DELETE = async (url: string, data?: any) => {
-  const result = await axios
-    .delete(url, { data })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      return err;
-    });
-  return result;
-};
+// response interceptor
+service.interceptors.response.use(
+  /**
+   * If you want to get http information such as headers or status
+   * Please return  response => response
+   */
+
+  /**
+   * Determine the request status by custom code
+   * Here is just an example
+   * You can also judge the status by HTTP Status Code
+   */
+  (response) => {
+    if (response.status !== 200 && response.status !== 0) {
+      // TODO
+    }
+    return response.data;
+  },
+  (error) => {
+    console.log('err' + error); // for debug
+    return Promise.reject(error);
+  }
+);
+
+export default service;

@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-18 11:26:09
- * @LastEditTime: 2021-09-19 18:07:34
+ * @LastEditTime: 2022-03-20 21:25:13
  * @LastEditors: Miya
  * @Description: 文件管理页面
- * @FilePath: \front\src\pages\Manager.tsx
+ * @FilePath: \Kagura-Image\front\src\pages\Manager.tsx
  * @Version: 1.0
  */
 import { defineComponent, reactive } from 'vue';
@@ -13,7 +13,7 @@ import Card from '../components/mermaid-ui/card/card';
 import Button from '../components/mermaid-ui/button/button';
 import { File } from '../interface/file';
 import '../style/manager.less';
-import { DELETE, GET } from '../utils/request';
+// import { DELETE, GET } from '../utils/request';
 
 const data = reactive({
   file: [],
@@ -80,14 +80,14 @@ const getFileContent = (id: number) => {
 
 const deleteImage = async (path: string) => {
   const getLength = data.file.findIndex((item: any) => item.path === path);
-  const result = await DELETE(`/api/file/${path}`);
-  if (!result) {
-    return false;
-  }
-  data.file.splice(getLength, 1);
-  data.fileView.splice(getLength, 1);
-  getFileView(data.nowPage);
-  data.nowPreview = 0;
+  // const result = await DELETE(`/api/file/${path}`);
+  // if (!result) {
+  //   return false;
+  // }
+  // data.file.splice(getLength, 1);
+  // data.fileView.splice(getLength, 1);
+  // getFileView(data.nowPage);
+  // data.nowPreview = 0;
 };
 
 const Manager = defineComponent({
@@ -102,11 +102,11 @@ const Manager = defineComponent({
     return { data };
   },
   async mounted() {
-    const getData = await GET('/api/file');
-    data.file = getData.data.data.reverse();
-    console.log(getData);
-    const a = await getFileView(1);
-    console.log(a);
+    // const getData = await GET('/api/file');
+    // data.file = getData.data.data.reverse();
+    // console.log(getData);
+    // const a = await getFileView(1);
+    // console.log(a);
   },
 
   render() {

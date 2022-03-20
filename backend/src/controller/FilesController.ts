@@ -53,7 +53,7 @@ class FilesController {
         return err;
       })
       .finally(() => {
-        console.log('[API]isDirExists Successed');
+        console.log('[API]isDirExists Succeeded');
       });
   }
 }
