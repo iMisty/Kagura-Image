@@ -1,16 +1,16 @@
 /*
  * @Author: Miya
  * @Date: 2021-06-11 15:08:33
- * @LastEditTime: 2021-09-05 06:14:29
+ * @LastEditTime: 2022-03-21 21:44:03
  * @LastEditors: Miya
  * @Description: 文件相关
- * @FilePath: \Kagura-Image\backend\src\router\file.ts
+ * @FilePath: \backend\src\router\file.ts
  */
 const router = require('koa-router')();
 // const FileController = require('../controller/FileController');
 // const DBController = require('../controller/DataBaseController');
 
-const FilesController = require('../controller/FilesController');
+// const FilesController = require('../controller/FilesController');
 
 router.prefix('/file');
 

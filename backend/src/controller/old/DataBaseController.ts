@@ -1,14 +1,14 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-23 15:35:17
- * @LastEditTime: 2021-06-13 03:15:44
+ * @LastEditTime: 2022-03-21 21:43:21
  * @LastEditors: Miya
  * @Description: 数据库操作
- * @FilePath: \backend\src\controller\DataBaseController.ts
+ * @FilePath: \backend\src\controller\old\DataBaseController.ts
  * @Version: 1.0
  */
 
-import { HOST } from '../config/upload';
+import { HOST } from '../../config/upload';
 
 const ImageModel = require('../model/Image');
 

@@ -1,7 +1,7 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-23 15:51:43
- * @LastEditTime: 2021-07-26 00:34:39
+ * @LastEditTime: 2022-03-21 21:48:12
  * @LastEditors: Miya
  * @Description: MongoDB图片模型
  * @FilePath: \backend\src\model\Image.ts
@@ -28,4 +28,6 @@ const imageModel = new Mongoose.Schema({
   time: String,
 });
 
-module.exports = Mongoose.model('Image', imageModel);
+const exportModel = Mongoose.model('Image', imageModel);
+
+export default exportModel;

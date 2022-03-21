@@ -1,16 +1,16 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:41:07
- * @LastEditTime: 2021-09-15 01:00:45
+ * @LastEditTime: 2022-03-21 22:04:10
  * @LastEditors: Miya
  * @Description: Update image controller
- * @FilePath: \backend\src\controller\UploadImageController.ts
+ * @FilePath: \backend\src\controller\old\UploadImageController.ts
  */
 
-import { HOST } from '../config/upload';
-import { CTX, UploadImageObject } from '../interface/ctx';
-import { formatDate } from '../util/formatDate';
-import { resizeImage } from '../util/resizeImg';
+import { HOST } from '../../config/upload';
+import { CTX, UploadImageObject } from '../../interface/ctx';
+import { formatDate } from '../../util/formatDate';
+import { resizeImage } from '../../util/resizeImg';
 
 // TODO: fix any
 interface CTXUpdate extends CTX {
@@ -105,7 +105,7 @@ class UploadController {
    */
 
   // Fix: GIF Thumbnail 500
-  public static async setUploadImage(ctx: CTXUpdate) {
+  public static async setUploadImage(ctx: CTXUpdate): Promise<any> {
     try {
       // Request body
       const image = ctx.request.files.image;

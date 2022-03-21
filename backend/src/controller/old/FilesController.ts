@@ -1,14 +1,14 @@
 /*
  * @Author: Miya
  * @Date: 2021-08-07 17:49:32
- * @LastEditTime: 2021-09-13 01:26:02
+ * @LastEditTime: 2022-03-21 21:43:19
  * @LastEditors: Miya
  * @Description: FileController Class
- * @FilePath: \backend\src\controller\FilesController.ts
+ * @FilePath: \backend\src\controller\old\FilesController.ts
  */
 
 import { readdir } from 'fs/promises';
-import { CTXParams, CTXReturn } from '../interface/ctx';
+import { CTXParams, CTXReturn } from '../../interface/ctx';
 
 class FilesController {
   /**

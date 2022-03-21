@@ -1,19 +1,19 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-22 10:11:32
- * @LastEditTime: 2021-09-13 01:11:42
+ * @LastEditTime: 2022-03-21 21:42:50
  * @LastEditors: Miya
  * @Description: 文件管理
- * @FilePath: \backend\src\controller\FileController.ts
+ * @FilePath: \backend\src\controller\old\FileController.ts
  * @Version: 1.0
  */
 
-import { CTXBody, CTXParams, CTXRead, CTXReturn } from '../interface/ctx';
+import { CTXBody, CTXParams, CTXRead, CTXReturn } from '../../interface/ctx';
 
-const fs = require('fs');
+import { fs } from 'fs';
 
-const DBController = require('./DataBaseController');
-const ImageModel = require('../model/Image');
+import DBController = require('./DataBaseController');
+import ImageModel = require('../../model/Image');
 
 class FileController {
   /**
