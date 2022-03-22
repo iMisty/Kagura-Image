@@ -1,36 +1,49 @@
 /*
- * @Author: Miya
- * @Date: 2021-09-14 23:09:46
- * @LastEditTime: 2021-09-15 00:59:15
- * @LastEditors: Miya
- * @Description: Resize Util
- * @FilePath: \backend\src\util\resizeImg.ts
+ * @Description: Image Resize Class
+ * @Version: 1.0
+ * @Author: Mirage
+ * @Date: 2022-03-22 09:40:52
+ * @LastEditors: Mirage
+ * @LastEditTime: 2022-03-22 12:08:38
  */
-const resizeImg = require('resize-img');
-const fs = require('fs');
 
-/**
- * @description: 修改图片大小
- * @param {String} src: 原图片相对地址
- * @param {String} thumbnailsrc： 缩略图存放地址
- * @return {Promise<String>}
- */
-const resizeImage = (src: string, thumbnailSrc: string): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    // 重新计算图片大小
-    resizeImg(fs.readFileSync(src), { width: 128 })
-      // true: 支持格式则写入
-      .then((buffer: Buffer) => {
-        console.log('x')
-        fs.writeFileSync(thumbnailSrc, buffer);
-        return resolve(thumbnailSrc);
-      })
-      // false: 内部错误
-      .catch((err: string) => {
-        console.log(err);
-        return reject(err);
-      });
-  });
+import resizeImg from 'resize-img';
+import { readFile, writeFile } from 'fs/promises';
+import { UploadImageObject } from '../interface/ctx';
+
+type ResizeParams = {
+  originalSrc: string;
+  thumbnailSrc: string;
+  width: number;
+  height: number;
 };
 
-export { resizeImage };
+class ResizeImg {
+  public original: string = './src/static/upload/';
+  public thumbnail: string = './src/static/thumbnail/';
+  public width: number = 128;
+  public height: number = 128;
+  public image: UploadImageObject;
+
+  constructor(image: UploadImageObject) {
+    this.image = image;
+    this.createThumbnails();
+  }
+
+  private async createThumbnails() {
+    const originalSrc = `${this.original}/${this.image.path}`;
+    const thumbnailSrc = `${this.thumbnail}/${this.image.path}`;
+    try {
+      const readImage = await readFile(originalSrc);
+      const resize = await resizeImg(readImage, { width: this.width });
+
+      const writeImage = await writeFile(thumbnailSrc, resize);
+
+      console.log(writeImage);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+export default ResizeImg;

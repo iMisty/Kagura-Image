@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "watch": "tsc --watch",
-    "start": "nodemon ./src/app.ts",
+    "start": "nodemon ./src/index.ts",
     "build": "tsc"
   },
   "dependencies": {
@@ -28,6 +28,13 @@
     "typescript": "^4.2.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.8",
+    "@babel/node": "^7.16.8",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/runtime": "^7.17.8",
     "@koa/multer": "^3.0.0",
     "@types/koa": "^2.13.1",
     "@types/koa-bodyparser": "^4.3.0",
@@ -38,6 +45,7 @@
     "@types/md5": "^2.3.0",
     "@types/mongoose": "^5.10.3",
     "@types/node": "^14.14.34",
+    "@types/resize-img": "^2.0.1",
     "koa-combine-routers": "^4.0.2",
     "nodemon": "^1.19.1"
   }

@@ -1,21 +1,21 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-14 17:35:13
- * @LastEditTime: 2021-12-02 01:09:33
- * @LastEditors: Miya
+ * @LastEditTime: 2022-03-22 12:10:13
+ * @LastEditors: Mirage
  * @Description: APP config
  * @FilePath: \backend\src\app.ts
  * @Version: 1.0
  */
 
-const Koa = require('koa');
-const path = require('path');
-const logger = require('koa-logger');
-const assets = require('koa-static');
-const cors = require('koa2-cors');
-const body2 = require('koa-body');
-const Mongoose = require('mongoose');
-const dbConfig = require('./config/db');
+import Koa from 'koa';
+import path from 'path';
+import logger from 'koa-logger';
+import assets from 'koa-static';
+import cors from 'koa2-cors';
+import body2 from 'koa-body';
+import Mongoose from 'mongoose';
+import Database from './config/database';
 
 import router from './router/index';
 
@@ -43,7 +43,7 @@ app.use(assets(__dirname + '/static'));
 // middleware: Router
 app.use(router());
 
-app.listen(12454);
+app.listen(12450);
 // 打印日志
 app.use(async (ctx: any, next: any) => {
   const start: Date = new Date();
@@ -52,14 +52,14 @@ app.use(async (ctx: any, next: any) => {
 });
 
 // 连接数据库
-Mongoose.connect(dbConfig.db, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => {
-    console.log('MongoDB is Listening on Port 27471');
-  })
-  .catch((err: string) => {
-    console.log(err);
-  });
-console.log('APP is Listening on Port 12454');
+// Mongoose.connect(Database.db, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// })
+//   .then(() => {
+//     console.log('MongoDB is Listening on Port 27471');
+//   })
+//   .catch((err: string) => {
+//     console.log(err);
+//   });
+console.log('APP is Listening on Port 12450');

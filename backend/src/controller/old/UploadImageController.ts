@@ -1,8 +1,8 @@
 /*
  * @Author: Miya
  * @Date: 2021-05-22 14:41:07
- * @LastEditTime: 2022-03-21 22:04:10
- * @LastEditors: Miya
+ * @LastEditTime: 2022-03-22 12:12:38
+ * @LastEditors: Mirage
  * @Description: Update image controller
  * @FilePath: \backend\src\controller\old\UploadImageController.ts
  */
@@ -10,7 +10,7 @@
 import { HOST } from '../../config/upload';
 import { CTX, UploadImageObject } from '../../interface/ctx';
 import { formatDate } from '../../util/formatDate';
-import { resizeImage } from '../../util/resizeImg';
+import ResizeImg from '../../util/ResizeImg';
 
 // TODO: fix any
 interface CTXUpdate extends CTX {
@@ -19,10 +19,7 @@ interface CTXUpdate extends CTX {
     files: any;
   };
 }
-
-const DBC = require('../controller/DataBaseController');
-const FC = require('../controller/FileController');
-const fs = require('fs');
+import fs from 'fs';
 
 class UploadController {
   /**
@@ -60,42 +57,11 @@ class UploadController {
    * @param {*}
    * @return {*}
    */
-  private static createThumbnails(image: UploadImageObject) {
+  public static async createThumbnails(image: UploadImageObject) {
     console.log('Upload Thumbnail now');
-    // 图片相对地址
-    const imageSrc = `./src/static/upload/${image.path}`;
-    // 缩略图相对地址
-    const thumbnailSrc = `./src/static/thumbnail/${image.path}`;
-    const thumbnailOutput = `${HOST}/thumbnail/${image.path}`;
-    return resizeImage(imageSrc, thumbnailSrc)
-      .then((res) => {
-        console.log(res);
-        return { ...image, res };
-      })
-      .catch((err) => {
-        console.log(err);
-        throw new Error(err);
-      })
-      .finally(() => {
-        console.log('Upload Thumbnail Complete');
-      });
-
-    // try {
-    //   // 生成缩略图
-    //   resizeImg(fs.readFileSync(imageSrc), {
-    //     width: 128,
-    //   }).then((buffer: Buffer) => {
-    //     fs.writeFileSync(thumbnailSrc, buffer);
-    //   });
-    //   console.log('Upload Thumbnail Succeeded');
-    //   return { ...image, thumbnailOutput };
-    // } catch (error) {
-    //   console.log('Upload Thumbnail Failed');
-    //   throw new Error(error);
-    //   return error;
-    // } finally {
-    //   console.log('Upload Thumbnail Complete');
-    // }
+    const resize = new ResizeImg(image);
+    console.log(resize);
+    return resize;
   }
 
   /**
@@ -130,4 +96,5 @@ class UploadController {
   }
 }
 
-module.exports = UploadController;
+// module.exports = UploadController;
+export default UploadController;
