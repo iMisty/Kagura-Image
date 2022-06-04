@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "kagura-image",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -24,7 +24,7 @@
     "md5": "^2.3.0",
     "mongoose": "^5.12.0",
     "resize-img": "^2.0.0",
-    "ts-node": "^9.1.1",
+    "ts-node": "^10.7.0",
     "typescript": "^4.2.3"
   },
   "devDependencies": {
