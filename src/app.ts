@@ -1,10 +1,10 @@
 /*
  * @Author: Miya
  * @Date: 2021-03-14 17:35:13
- * @LastEditTime: 2022-03-22 12:10:13
- * @LastEditors: Mirage
+ * @LastEditTime: 2022-04-06 21:21:06
+ * @LastEditors: Miya
  * @Description: APP config
- * @FilePath: \backend\src\app.ts
+ * @FilePath: \Kagura-Image\src\app.ts
  * @Version: 1.0
  */
 
@@ -13,9 +13,9 @@ import path from 'path';
 import logger from 'koa-logger';
 import assets from 'koa-static';
 import cors from 'koa2-cors';
-import body2 from 'koa-body';
-import Mongoose from 'mongoose';
-import Database from './config/database';
+import body from 'koa-body';
+// import Mongoose from 'mongoose';
+// import Database from './config/database';
 
 import router from './router/index';
 
@@ -27,13 +27,11 @@ app.use(cors());
 app.use(logger());
 // middleware: Multi Upload
 app.use(
-  body2({
+  body({
     multipart: true,
     formidable: {
       maxFileSize: 20000 * 1024 * 1024,
-      // 上传目录
       uploadDir: path.join(__dirname, '/static/upload'),
-      // 保留文件扩展名
       keepExtensions: true,
     },
   })
@@ -44,14 +42,12 @@ app.use(assets(__dirname + '/static'));
 app.use(router());
 
 app.listen(12450);
-// 打印日志
-app.use(async (ctx: any, next: any) => {
+// logger
+app.use(async (ctx, next: any) => {
   const start: Date = new Date();
   await next();
   console.log(`${ctx.method} ${ctx.url}`);
 });
-
-// 连接数据库
 // Mongoose.connect(Database.db, {
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true,
